@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notekle" />
+
+        <EditText
+            android:id="@+id/notedittext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Eklemek istediğiniz not:" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="12dp"
+                android:textColor="@color/colorTabText"
+                android:layout_toLeftOf="@+id/notekleiptalbutton"
+                android:text="İpucu: Notunuzun üzerine basılı tutarak silebilirsiniz." />
+
+            <TextView
+                android:id="@+id/notekleiptalbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@+id/noteklebutton"
+                android:text="İptal"
+                android:textColor="@color/colorTabText"
+                android:textSize="20dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/noteklebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                android:text="Ekle"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "188566396207",
+    "firebase_url": "https://alisverisim-8908d.firebaseio.com",
+    "project_id": "alisverisim-8908d",
+    "storage_bucket": "alisverisim-8908d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:188566396207:android:eec0a5c30d6ebe54",
+        "android_client_info": {
+          "package_name": "com.alisverisim.yek.alversim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "188566396207-bq96t8r3k6gq3ghjhvmllvhp7a354h94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alisverisim.yek.alversim",
+            "certificate_hash": "1771b22d7b86a7e94db9075b4bd3d085391c5726"
+          }
+        },
+        {
+          "client_id": "188566396207-348prqe761v2ra19h55fbe2rio6bs0ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJPcViTBtFzPmL4aNTRTxFXIrrewdNK8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "188566396207-348prqe761v2ra19h55fbe2rio6bs0ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

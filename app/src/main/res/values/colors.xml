@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1a237e</color>
+    <color name="colorPrimaryDark">#1a237e</color>
+    <color name="colorAccent">#534bae</color>
+    <color name="secondaryPink">#D43C6E</color>
+    <color name="colorTabText">#2c3e50</color>
+    <color name="colorCardview">#F9FAF9</color>
+    <color name="colorButton">#D43C6E</color>
+    <color name="colorBackgraound">#f3f1ef</color>
+    <color name="colorYellow">#F9FAF9</color>
+    <color name="colorIptalButton">#00b894</color>
+    <color name="colorText">#6c7a89</color>
+    <color name="colorAcıkMavi">#ecf0f1</color>
+
+</resources>

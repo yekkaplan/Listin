@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/cikis_yap"
+        android:orderInCategory="100"
+        android:title="Programdan Çık" />
+    <item
+        android:id="@+id/menu_item_share"
+        android:actionProviderClass="android.widget.ShareActionProvider"
+        android:title="Share"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="ifRoom"
+        tools:ignore="AppCompatResource,HardcodedText" />
+</menu>

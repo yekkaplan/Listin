@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listetemizle"
+        android:title="Listeyi Temizle" />
+    <item
+        android:id="@+id/ortakgoruntule"
+        android:title="Ortakları görüntüle" />
+
+    <item
+        android:id="@+id/listedenayril"
+        android:title="Listeden Çık" />
+
+
+</menu>

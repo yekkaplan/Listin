@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorCardview"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgraound"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/ortaklisterelativbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp">
+
+
+            <ImageView
+                android:id="@+id/ortakPopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_vertyirmi" />
+
+            <ImageView
+                android:id="@+id/ortakPaylasButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/ortakPopup"
+                android:clickable="true"
+                android:src="@drawable/ic_shareyirmi" />
+
+
+            <TextView
+                android:id="@+id/ortaklisteBasligi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="8dp"
+                android:text="Listin &amp; Çevrimiçi Listeler"
+                android:textColor="@color/colorBackgraound"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ortaklistelerrecylerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ortaklisterelativbar">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/ortaklistevisibletext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableTop="@drawable/ic_sync_disabled"
+            android:text="Ortak liste bulunamadı."
+            android:textColor="@color/colorTabText"
+            android:textSize="14dp"
+            android:textStyle="normal"
+            android:visibility="invisible" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@drawable/ic_format_list_bulleted"
+        id="@+id/tab_cevrimici"
+        title="Listeler" />
+    <tab
+        icon="@drawable/ic_wifi_tethering"
+        id="@+id/tab_ortak"
+        title="Ortak listeler" />
+
+    <tab
+        icon="@drawable/ic_person"
+        id="@+id/tab_profil"
+        title="Profil" />
+</tabs>
