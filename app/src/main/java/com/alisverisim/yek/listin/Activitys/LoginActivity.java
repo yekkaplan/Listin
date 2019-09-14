@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                     if (kullanıcıPassword.length() < 8 || kullanıcıPassword.length() > 12 || kullanıcıPassword.equals("")) {
 
-                        Toast.makeText(getApplicationContext(), "Şifren 8'den küçük 12'den büyük olmamalı. :)", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Şifren 8'den küçük 12'den büyük olmamalı.", Toast.LENGTH_SHORT).show();
 
                     } else {
 
@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                 } else {
 
-                    Toast.makeText(getApplicationContext(), "Geçerli bir email adresi girmelisin. :)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Geçerli bir email adresi girmelisin.", Toast.LENGTH_SHORT).show();
                 }
 
 

@@ -3,31 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="16dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_contact_mail"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="Kayıt olurken kullandığınız e-mail adresini giriniz:"
             android:textSize="16dp"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
         <EditText
             android:id="@+id/sifresifirlaedittext"
             android:layout_width="match_parent"
-            android:inputType="textEmailAddress"
-            android:cursorVisible="false"
             android:layout_height="match_parent"
-            android:hint="E-mail" />
+            android:cursorVisible="false"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:textSize="16dp" />
 
 
         <RelativeLayout

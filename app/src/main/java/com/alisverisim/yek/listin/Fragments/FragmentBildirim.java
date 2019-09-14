@@ -3,6 +3,7 @@ package com.alisverisim.yek.listin.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +35,8 @@ public class FragmentBildirim extends Fragment {
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
-    TextView listebaslik;
     ImageView backbutton;
+    Toolbar toolbar;
     String uid;
     TextView visibletext, ipucutext, altbasliktext;
     com.alisverisim.yek.listin.Adapters.bildirimAdapter bildirimAdapter;
@@ -52,15 +53,13 @@ public class FragmentBildirim extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         tanimla();
         listele();
-        action();
+        toolbarAction();
         return view;
 
     }
 
     public void tanimla() {
 
-
-        backbutton = view.findViewById(R.id.bildirimback);
         listView = view.findViewById(R.id.bildirimgonderlistview);
         visibletext = view.findViewById(R.id.bildirimvisibletext);
         ipucutext = view.findViewById(R.id.ipucutext);
@@ -68,19 +67,6 @@ public class FragmentBildirim extends Fragment {
     }
 
 
-    public void action() {
-
-        backbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getActivity().onBackPressed();
-
-            }
-        });
-
-
-    }
 
     public void listele() {
 
@@ -112,8 +98,6 @@ public class FragmentBildirim extends Fragment {
                     if (uidList.size() > 0) {
 
 
-                        listebaslik = view.findViewById(R.id.bildirimlisteadi);
-                        listebaslik.setText(listeadi);
                         bildirimAdapter = new bildirimAdapter(uidList, getContext(), getActivity(), listeadi);
                         listView.setAdapter(bildirimAdapter);
                         bildirimAdapter.notifyDataSetChanged();
@@ -142,6 +126,23 @@ public class FragmentBildirim extends Fragment {
         });
 
 
+    }
+
+
+    private void toolbarAction() {
+
+        toolbar = view.findViewById(R.id.bildirimgondertoolbar);
+        toolbar.setTitle("Bildirim Gönder");
+        toolbar.setSubtitle(listeadi);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                getActivity().onBackPressed();
+                // back button pressed
+            }
+        });
     }
 }
 

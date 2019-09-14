@@ -9,8 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -51,6 +53,7 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
     SpotsDialog profilProgress;
     FirebaseUser firebaseUser;
     TextView visibleortaklist;
+    Toolbar toolbar;
     ImageView paylasbutton, popupTextview;
 
     View view;
@@ -61,7 +64,7 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
         view = inflater.inflate(R.layout.fragment_fragment_ortak_liste, container, false);
         tanimlama();
         cevrimicilistekontrol();
-        action();
+        tabAction();
         return view;
 
     }
@@ -78,8 +81,6 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
         recyclerView.setLayoutManager(mng);
         visibleortaklist = view.findViewById(R.id.ortaklistevisibletext);
 
-        paylasbutton = view.findViewById(R.id.ortakPaylasButton);
-        popupTextview = view.findViewById(R.id.ortakPopup);
     }
 
 
@@ -155,45 +156,47 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
     }
 
 
-    private void action() {
-
-
-        paylasbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBodyText = "Yeni bir alışveriş uygulaması buldum. Bana katıl ve ortak listeler oluşturalım!\n" +
-                        "İşte linki: https://play.google.com/store/apps/details?id=com.alisverisim.yek.alversim";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Listin & Çevrimiçi listeler");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
-                startActivity(Intent.createChooser(sharingIntent, "Uygulamayı arkadaşların ile paylaş"));
-
-
-            }
-        });
-
-
-        popupTextview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(getContext(), v);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.anamenu_popup, popup.getMenu());
-                popup.setOnMenuItemClickListener(new anamenupopuplistener(getContext()));
-                popup.show();
-            }
-        });
-
-    }
-
-
     @Override
     public boolean onBackPressed() {
 
         System.exit(0);
         return false;
     }
+
+    private void tabAction() {
+
+
+        toolbar = view.findViewById(R.id.ortaklistetoolbar);
+
+
+        toolbar.setTitle("Listin & Çevrimiçi Listeler");
+        toolbar.setSubtitle("Ortak Listeler");
+        toolbar.inflateMenu(R.menu.cevrimici_toolbar);
+
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                if (menuItem.getItemId() == R.id.menu_item_share) {
+
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBodyText = "Yeni bir alışveriş uygulaması buldum. Bana katıl ve ortak listeler oluşturalım!\n" +
+                            "İşte linki: https://play.google.com/store/apps/details?id=com.alisverisim.yek.alversim";
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Listin & Çevrimiçi listeler");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                    startActivity(Intent.createChooser(sharingIntent, "Uygulamayı arkadaşların ile paylaş"));
+
+
+                }
+
+
+                return false;
+            }
+        });
+
+
+    }
+
 }

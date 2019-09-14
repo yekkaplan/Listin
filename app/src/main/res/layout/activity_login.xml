@@ -56,10 +56,7 @@
             android:cursorVisible="true"
             android:gravity="center"
             android:hint="Şifreniz"
-            android:inputType="textPassword">
-
-            <requestFocus />
-        </EditText>
+            android:inputType="textPassword"></EditText>
 
 
         <Button
@@ -92,7 +89,6 @@
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="10dp"
-            android:textAlignment="center"
             android:layout_marginRight="16dp"
             android:background="@drawable/withgoogle"
             android:drawableStart="@drawable/googleg_standard_color_18"
@@ -101,6 +97,7 @@
             android:paddingStart="10dp"
             android:paddingEnd="37dp"
             android:text="Google ile giriş yap"
+            android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/colorTabText" />
 
@@ -111,11 +108,11 @@
         android:id="@+id/sifresıfırla"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/loginliner"
         android:layout_alignParentLeft="true"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:layout_below="@+id/loginliner"
         android:text="Şifrenizi mi unuttunuz?"
         android:textAlignment="center"
         android:textColor="@color/colorBackgraound"
@@ -126,8 +123,8 @@
         android:id="@+id/yenihesaptextview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/sifresıfırla"
+        android:layout_alignParentRight="true"
         android:layout_gravity="center"
         android:layout_marginTop="7dp"
         android:text="Yeni hesap oluştur"

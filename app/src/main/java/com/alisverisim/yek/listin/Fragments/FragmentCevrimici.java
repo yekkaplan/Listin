@@ -11,14 +11,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alisverisim.yek.listin.Activitys.LoginActivity;
 import com.alisverisim.yek.listin.Activitys.MainActivity;
@@ -37,6 +41,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mlsdev.animatedrv.AnimatedRecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +55,7 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
-    RecyclerView cevrimicitumlistelerRecylerview;
+    AnimatedRecyclerView cevrimicitumlistelerRecylerview;
     cevrimiciTumListeAdapter cevrimiciTumListeAdapter;
     List<cevrimcilistmodel> listeler;
     cevrimcilistmodel cevrimcilistmodel;
@@ -62,19 +67,19 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
     ImageView paylasbutton;
     FloatingActionButton floatingActionButton;
 
+
+    android.support.v7.widget.Toolbar toolbar;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.cevrimici_fragment, container, false);
 
-
-        firebaseTanımlanması();
         viewTanimlanması();
+        firebaseTanımlanması();
+        tabAction();
         fabAction();
         cevrimicilistelerkontrol();
-        action();
-
-
         return view;
     }
 
@@ -97,19 +102,62 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
     public void viewTanimlanması() {
 
 
-        paylasbutton = view.findViewById(R.id.cevrimicipaylasbutton);
+        //  paylasbutton = view.findViewById(R.id.cevrimicipaylasbutton);
 
         floatingActionButton = view.findViewById(R.id.cevrimicifab);
 
-        popup = view.findViewById(R.id.cevrimicipopupTextview);
+        // popup = view.findViewById(R.id.cevrimicipopupTextview);
 
-        cevrimicitumlistelerRecylerview = view.findViewById(R.id.cevrimicitumlistelerRecylerview);
+        cevrimicitumlistelerRecylerview = view.findViewById(R.id.recycler_view);
 
 
         RecyclerView.LayoutManager mng = new GridLayoutManager(getContext(), 2);
-
-
         cevrimicitumlistelerRecylerview.setLayoutManager(mng);
+
+        AnimatedRecyclerView cevrimicitumlistelerRecylerview = new AnimatedRecyclerView.Builder(getContext())
+                .orientation(LinearLayoutManager.VERTICAL)
+                .layoutManagerType(AnimatedRecyclerView.LayoutManagerType.GRID)
+                .animation(R.anim.item_animation_from_bottom_scale)
+                .animationDuration(600)
+                .reverse(false)
+                .build();
+
+    }
+
+
+    private void tabAction() {
+
+
+        toolbar = view.findViewById(R.id.toolbar);
+
+
+        toolbar.setTitle("Listin & Çevrimiçi Listeler");
+        toolbar.setSubtitle("Çevrimiçi Listeler");
+        toolbar.inflateMenu(R.menu.cevrimici_toolbar);
+
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                if (menuItem.getItemId() == R.id.menu_item_share) {
+
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBodyText = "Yeni bir alışveriş uygulaması buldum. Bana katıl ve ortak listeler oluşturalım!\n" +
+                            "İşte linki: https://play.google.com/store/apps/details?id=com.alisverisim.yek.alversim";
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Listin & Çevrimiçi listeler");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                    startActivity(Intent.createChooser(sharingIntent, "Uygulamayı arkadaşların ile paylaş"));
+
+
+                }
+
+
+                return false;
+            }
+        });
+
 
     }
 
@@ -127,8 +175,6 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
             }
         });
     }
-
-
 
 
     public void cevrimicilistelerkontrol() {
@@ -181,6 +227,7 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
                             cevrimiciTumListeAdapter = new cevrimiciTumListeAdapter(listeler, getActivity(), getContext());
                             cevrimiciTumListeAdapter.notifyDataSetChanged();
                             cevrimicitumlistelerRecylerview.setAdapter(cevrimiciTumListeAdapter);
+                            cevrimicitumlistelerRecylerview.notifyDataSetChanged();
                             profilProgress.dismiss();
 
 
@@ -214,41 +261,6 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
 
     }
 
-
-    private void action() {
-
-
-        popup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                PopupMenu popup = new PopupMenu(context, v);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.anamenu_popup, popup.getMenu());
-                popup.setOnMenuItemClickListener(new anamenupopuplistener(context));
-                popup.show();
-            }
-        });
-
-
-        paylasbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBodyText = "Yeni bir alışveriş uygulaması buldum. Bana katıl ve ortak listeler oluşturalım!\n" +
-                        "İşte linki: https://play.google.com/store/apps/details?id=com.alisverisim.yek.alversim";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Listin & Çevrimiçi listeler");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
-                startActivity(Intent.createChooser(sharingIntent, "Uygulamayı arkadaşların ile paylaş"));
-
-            }
-        });
-
-
-    }
 
     @Override
     public boolean onBackPressed() {

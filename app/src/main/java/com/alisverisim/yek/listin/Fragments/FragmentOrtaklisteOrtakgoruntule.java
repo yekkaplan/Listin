@@ -3,6 +3,7 @@ package com.alisverisim.yek.listin.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
     TextView visibletext;
     TextView goruntulelisteadi;
     TextView txt;
+    Toolbar toolbar;
     View view;
     cevrimiciortakGoruntuleAdapter cevrimiciortakGoruntuleAdapter;
 
@@ -52,11 +54,10 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
 
         listeadi = getArguments().getString("listeadi");
         kuid = getArguments().getString(("kuid"));
-
         firebaseTanimla();
-        action();
-        ortakkontrol();
 
+        toolbarAction();
+        ortakkontrol();
         return view;
 
     }
@@ -68,28 +69,10 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         listView = view.findViewById(R.id.ortaklistortakgoruntulelistview);
-        back = view.findViewById(R.id.ortaklistortakgoruntuleback);
-        goruntulelisteadi = view.findViewById(R.id.ortaklistortakgoruntulelisteadi);
         visibletext = view.findViewById(R.id.ortaklarvisibletext);
         txt = view.findViewById(R.id.ortakgoruntuletxt);
     }
 
-
-    public void action() {
-
-        goruntulelisteadi.setText(listeadi);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                MainActivity.state = R.id.tab_ortak;
-                getActivity().onBackPressed();
-
-            }
-        });
-
-
-    }
 
 
     public void ortakkontrol() {
@@ -132,6 +115,23 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
         });
 
 
+    }
+
+
+    private void toolbarAction() {
+
+        toolbar = view.findViewById(R.id.ortaklisteortakgoruntuletoolbar);
+        toolbar.setTitle("Liste Ortakları");
+        toolbar.setSubtitle(listeadi);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                getActivity().onBackPressed();
+                // back button pressed
+            }
+        });
     }
 
 }

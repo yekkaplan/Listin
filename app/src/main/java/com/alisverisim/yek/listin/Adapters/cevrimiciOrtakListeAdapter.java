@@ -13,12 +13,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.alisverisim.yek.listin.AlertDialogs.ortaklistesilmealert;
 import com.alisverisim.yek.listin.Fragments.FragmentOrtakListeİcerik;
 import com.alisverisim.yek.listin.Listeners.ortaklistpopuplistener;
 import com.alisverisim.yek.listin.Models.ortaklistmodel;
 import com.alisverisim.yek.listin.R;
 import com.alisverisim.yek.listin.Utils.ChangeFragment;
+import com.alisverisim.yek.listin.Utils.FirebaseServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -73,26 +76,31 @@ public class cevrimiciOrtakListeAdapter extends RecyclerView.Adapter<cevrimiciOr
 
 
                 ChangeFragment changeFragment = new ChangeFragment(context);
-                changeFragment.ikiVeriGonder(new FragmentOrtakListeİcerik(), liste.get(i).getListeadi(), liste.get(i).getKullaniciuid(),"ortaklisteIcerikFrag");
+                changeFragment.ikiVeriGonder(new FragmentOrtakListeİcerik(), liste.get(i).getListeadi(), liste.get(i).getKullaniciuid(), "ortaklisteIcerikFrag");
 
 
             }
         });
 
-        viewHolder.overflow.setOnClickListener(new View.OnClickListener() {
+
+        viewHolder.ortaklarliner.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onLongClick(View v) {
+
 
                 kuid = liste.get(i).getKullaniciuid();
                 listeadi = liste.get(i).getListeadi();
                 listekey = liste.get(i).getListekey();
-                PopupMenu popup = new PopupMenu(context, view);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.card_menu, popup.getMenu());
-                popup.setOnMenuItemClickListener(new ortaklistpopuplistener(context, kuid, listeadi, listekey));
-                popup.show();
+                ortaklistesilmealert ortaklistesilmealert = new ortaklistesilmealert(activity, listeadi, kuid, listekey);
+                ortaklistesilmealert.ac();
+                return false;
             }
         });
+        /*
+
+                Toast.makeText(context, "Listeden ayrıldınız.", Toast.LENGTH_SHORT).show();
+
+                */
 
     }
 
@@ -120,7 +128,6 @@ public class cevrimiciOrtakListeAdapter extends RecyclerView.Adapter<cevrimiciOr
             typeface = Typeface.createFromAsset(activity.getAssets(), "fonts/yekfont.ttf");
             ortaklarliner = itemView.findViewById(R.id.ortaklartumlisteliner);
             baslikTextview = itemView.findViewById(R.id.cortaktumlistebaslik);
-            overflow = itemView.findViewById(R.id.voverflow);
         }
     }
 

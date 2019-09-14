@@ -15,8 +15,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -63,9 +65,9 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 public class FragmentProfil extends Fragment implements IOnBackPressed {
 
     View view;
-
+    Toolbar toolbar;
     ExtendedEditText mailAdresi, kAdi, dogumExtendted;
-    Button guncellebuton, cikisButton;
+    Button guncellebuton, cikisButton, kullanımButton;
     CircleImageView profilresmi;
     ImageView paylasButton, popupButton;
     FirebaseDatabase firebaseDatabase;
@@ -88,7 +90,7 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
         tanimla();
         getUsersValue();
         buttonAction();
-        barAction();
+        tabAction();
         return view;
     }
 
@@ -118,11 +120,9 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
         cikisButton = view.findViewById(R.id.cikisyapButton);
         emailTextFieldBoxes = view.findViewById(R.id.emailProfileTextfield);
         kadiEmailTextFieldBoxes = view.findViewById(R.id.profilAdınveSoyadınTextfield);
+        kullanımButton = view.findViewById(R.id.kullanimvegizlilikbutton);
 
 
-        paylasButton = view.findViewById(R.id.profilepaylas);
-
-        popupButton = view.findViewById(R.id.profilepopup);
     }
 
 
@@ -219,6 +219,19 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
 
                 datePicker.show();
 
+            }
+        });
+
+
+        kullanımButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String url = "https://www.yunusemrekaplan.com/yunus-emre-kaplan-mobil-android-uygulamalari-gizlilik-politikasi/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
 
@@ -354,8 +367,6 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
             }
 
 
-
-
             Toast.makeText(getContext(), "Resim Yükleniyor..", Toast.LENGTH_LONG).show();
 
             final StorageReference ref = storageReference.child("kullaniciresimleri").child(randomStringGenerator.generateString() + ".jpg");
@@ -393,41 +404,6 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
     }
 
 
-    public void barAction() {
-
-        paylasButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBodyText = "Yeni bir alışveriş uygulaması buldum. Bana katıl ve ortak listeler oluşturalım!\n" +
-                        "İşte linki: https://play.google.com/store/apps/details?id=com.alisverisim.yek.alversim";
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Listin & Çevrimiçi listeler");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
-                startActivity(Intent.createChooser(sharingIntent, "Uygulamayı arkadaşların ile paylaş"));
-
-            }
-        });
-
-
-        popupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                PopupMenu popup = new PopupMenu(getContext(), v);
-                MenuInflater inflater = popup.getMenuInflater();
-                inflater.inflate(R.menu.anamenu_popup, popup.getMenu());
-                popup.setOnMenuItemClickListener(new anamenupopuplistener(getContext()));
-                popup.show();
-
-            }
-        });
-    }
-
-
     @Override
     public boolean onBackPressed() {
         System.exit(0);
@@ -444,5 +420,39 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
             int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
             return cursor.getString(idx);
         }
+    }
+
+
+    private void tabAction() {
+
+
+        toolbar = view.findViewById(R.id.profiltoolbar);
+
+
+        toolbar.setTitle("Listin & Çevrimiçi Listeler");
+        toolbar.setSubtitle("Profilim");
+        toolbar.inflateMenu(R.menu.cevrimici_toolbar);
+
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                if (menuItem.getItemId() == R.id.menu_item_share) {
+
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBodyText = "Yeni bir alışveriş uygulaması buldum. Bana katıl ve ortak listeler oluşturalım!\n" +
+                            "İşte linki: https://play.google.com/store/apps/details?id=com.alisverisim.yek.alversim";
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Listin & Çevrimiçi listeler");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                    startActivity(Intent.createChooser(sharingIntent, "Uygulamayı arkadaşların ile paylaş"));
+                }
+
+                return false;
+            }
+        });
+
+
     }
 }

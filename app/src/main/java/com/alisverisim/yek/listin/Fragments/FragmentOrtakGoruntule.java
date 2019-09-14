@@ -3,6 +3,7 @@ package com.alisverisim.yek.listin.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class FragmentOrtakGoruntule extends Fragment {
     TextView visibletext;
     TextView goruntulelisteadi;
     TextView txt;
+    Toolbar toolbar;
     View view;
     cevrimiciortakGoruntuleAdapter cevrimiciortakGoruntuleAdapter;
 
@@ -52,9 +54,8 @@ public class FragmentOrtakGoruntule extends Fragment {
 
 
         firebaseTanimla();
-        action();
         ortakkontrol();
-
+        toolbarAction();
         return view;
 
     }
@@ -66,28 +67,8 @@ public class FragmentOrtakGoruntule extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         listView = view.findViewById(R.id.ortakgoruntulelistview);
-        back = view.findViewById(R.id.ortaklarlisteback);
-        goruntulelisteadi = view.findViewById(R.id.goruntulelisteadi);
         visibletext = view.findViewById(R.id.visibletext);
         txt = view.findViewById(R.id.txt);
-    }
-
-
-    public void action() {
-
-        goruntulelisteadi.setText(listeadi);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                MainActivity.state = R.id.tab_cevrimici;
-
-                getActivity().onBackPressed();
-
-            }
-        });
-
-
     }
 
 
@@ -153,6 +134,23 @@ public class FragmentOrtakGoruntule extends Fragment {
             });
         }
 
+    }
+
+
+    private void toolbarAction() {
+
+        toolbar = view.findViewById(R.id.ortakiceriktoolbar);
+        toolbar.setTitle("Liste Ortakları");
+        toolbar.setSubtitle(listeadi);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                getActivity().onBackPressed();
+                // back button pressed
+            }
+        });
     }
 
 

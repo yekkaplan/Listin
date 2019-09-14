@@ -39,7 +39,6 @@ public class FirebaseServices {
 
     public static void ortakEkle(String uid, String email, String listeadi) {
 
-        // Log.i("xxxxx", "Eklenecek uid" + uid + "  email" + email + "   kullaniciuid" + firebaseUser.getUid() + "  listeadi" + listeadi);
 
 
         ortakmap = new HashMap<String, Object>();
@@ -61,9 +60,11 @@ public class FirebaseServices {
         firebaseUser = firebaseAuth.getCurrentUser();
         databaseReference2 = firebaseDatabase.getReference("Users").child(uid).child("ortakListeler").push();
         String push = databaseReference2.getKey();
+
         databaseReference = firebaseDatabase.getReference("Users").child(uid).child("ortakListeler").child(push).child("kullaniciuid");
-        databaseReference3 = firebaseDatabase.getReference("Users").child(uid).child("ortakListeler").child(push).child("listeadi");
         databaseReference.setValue(firebaseUser.getUid().toString());
+
+        databaseReference3 = firebaseDatabase.getReference("Users").child(uid).child("ortakListeler").child(push).child("listeadi");
         databaseReference3.setValue(listeadi);
 
     }

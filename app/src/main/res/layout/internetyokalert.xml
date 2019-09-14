@@ -18,8 +18,8 @@
             android:drawableTop="@drawable/ic_warning"
             android:gravity="center"
             android:text="Uygulamayı kullanabilmek için lütfen internete bağlanın."
-            android:textColor="@color/colorTabText"
-            android:textSize="18dp"
+            android:textColor="@color/colorText"
+            android:textSize="16dp"
             android:textStyle="normal" />
 
         <RelativeLayout
@@ -36,7 +36,7 @@
                 android:layout_margin="10dp"
                 android:text="Tamam"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="normal" />
 
         </RelativeLayout>

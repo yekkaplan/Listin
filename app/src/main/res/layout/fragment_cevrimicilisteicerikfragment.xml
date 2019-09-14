@@ -8,64 +8,23 @@
     android:background="@color/colorBackgraound"
     tools:context=".Fragments.FragmentCevrimiciIcerik">
 
-    <RelativeLayout
-        android:id="@+id/cevrimicirelativbar"
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cevrimiciiceriktoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/colorPrimaryDark"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
-
-        <ImageView
-            android:id="@+id/cevrimicilisteyitemizle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="5dp"
-            android:clickable="true"
-            android:src="@drawable/ic_sweep" />
-
-        <ImageView
-            android:id="@+id/cevrimiciortakgoruntule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/cevrimicilisteyitemizle"
-            android:clickable="true"
-            android:src="@drawable/ic_account" />
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:theme="@style/ToolBarStyle">
 
 
-        <TextView
-            android:id="@+id/cevrimicilistebasligi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/cevrimiciicerikback"
-            android:text="Alışveriş Listesi"
-            android:textAllCaps="false"
-            android:textColor="@color/colorBackgraound"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/cevrimiciicerikback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:clickable="true"
-            android:src="@drawable/ic_arrow" />
-    </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/cevrimicirelativbar">
+        android:layout_below="@+id/cevrimiciiceriktoolbar">
 
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes

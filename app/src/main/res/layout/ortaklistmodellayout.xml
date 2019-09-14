@@ -15,7 +15,7 @@
         card_view:cardCornerRadius="0dp"
         card_view:cardMaxElevation="1dp"
         card_view:cardUseCompatPadding="true"
-        card_view:contentPadding="5dp">
+        card_view:contentPadding="8dp">
 
 
         <LinearLayout

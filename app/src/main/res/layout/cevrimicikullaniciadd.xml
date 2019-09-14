@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="5dp">
 
 
     <LinearLayout
@@ -18,14 +18,16 @@
             android:drawableTop="@drawable/ic_group_add"
             android:gravity="center"
             android:text="Eklemek istediğiniz kullanıcı:"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="16dp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal" />
 
         <EditText
             android:id="@+id/cevrimiciurunmenualertedittext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="örn: kullanıcı@example.com" />
+            android:textSize="16dp"
+            android:hint="örn:kullanıcı@example.com" />
 
 
         <RelativeLayout
@@ -41,7 +43,7 @@
                 android:layout_toLeftOf="@+id/cevrimiciurunmenualertbutton"
                 android:text="İptal"
                 android:textColor="@color/colorTabText"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textStyle="normal" />
 
             <TextView
@@ -52,7 +54,7 @@
                 android:layout_margin="10dp"
                 android:text="Ekle"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textStyle="normal" />
 
         </RelativeLayout>

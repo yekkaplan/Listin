@@ -1,14 +1,17 @@
 package com.alisverisim.yek.listin.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -46,6 +49,8 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 public class FragmentCevrimiciIcerik extends Fragment {
 
     View view;
+
+    Toolbar toolbar;
     HashMap<String, Boolean> hashMap;
     HashMap<String, String> notHashmap;
     String listeadi;
@@ -78,6 +83,7 @@ public class FragmentCevrimiciIcerik extends Fragment {
         tanimla();
         firebasetanimla();
         listele();
+        tabAction();
         action();
         return view;
 
@@ -99,11 +105,7 @@ public class FragmentCevrimiciIcerik extends Fragment {
         fabKullaniciEkle = view.findViewById(R.id.yeniarkadasfab);
         fabBildirimGonder = view.findViewById(R.id.bildirimgonderfab);
         listeadi = getArguments().getString("metin").toString();
-        icerikbaslik = view.findViewById(R.id.cevrimicilistebasligi);
-        icerikBack = view.findViewById(R.id.cevrimiciicerikback);
-        icerikbaslik.setText(listeadi);
-        listeyitemizle = view.findViewById(R.id.cevrimicilisteyitemizle);
-        ortakgoruntule = view.findViewById(R.id.cevrimiciortakgoruntule);
+
         cevrimicivisibletext = view.findViewById(R.id.cevrimicivisibletext);
     }
 
@@ -166,45 +168,11 @@ public class FragmentCevrimiciIcerik extends Fragment {
         });
 
 
-        // back Action
-        icerikBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                MainActivity.state = R.id.tab_cevrimici;
-
-                getActivity().onBackPressed();
-
-            }
-        });
-
-
         fabKullaniciEkle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cevrimiciKullanicialert cevrimiciKullanicialert = new cevrimiciKullanicialert(getActivity(), listeadi);
-
-
                 cevrimiciKullanicialert.ac();
-            }
-        });
-
-
-        listeyitemizle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                cevrimicilisteyitemizlealert cevrimicilisteyitemizlealert = new cevrimicilisteyitemizlealert(getActivity(), listeadi, firebaseUser.getUid());
-                cevrimicilisteyitemizlealert.ac();
-            }
-        });
-
-        ortakgoruntule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ChangeFragment changeFragment = new ChangeFragment(context);
-                changeFragment.veriGonder(new FragmentOrtakGoruntule(), listeadi, "ortakGoruntuleFrag");
             }
         });
 
@@ -215,8 +183,7 @@ public class FragmentCevrimiciIcerik extends Fragment {
 
 
                 ChangeFragment changeFragment = new ChangeFragment(getActivity());
-                changeFragment.arraysend(new FragmentBildirim(), listeadi,firebaseUser.getUid());
-
+                changeFragment.arraysend(new FragmentBildirim(), listeadi, firebaseUser.getUid());
 
 
             }
@@ -304,6 +271,52 @@ public class FragmentCevrimiciIcerik extends Fragment {
         return map;
 
     }
+
+
+    private void tabAction() {
+
+
+        toolbar = view.findViewById(R.id.cevrimiciiceriktoolbar);
+
+
+        toolbar.setTitle("Çevrimiçi Listeler");
+        toolbar.setSubtitle(listeadi);
+        toolbar.inflateMenu(R.menu.cevrimici_icerik_menu);
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                getActivity().onBackPressed();
+                // back button pressed
+            }
+        });
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                if (menuItem.getItemId() == R.id.menu_listeyitemizle) {
+
+                    cevrimicilisteyitemizlealert cevrimicilisteyitemizlealert = new cevrimicilisteyitemizlealert(getActivity(), listeadi, firebaseUser.getUid());
+                    cevrimicilisteyitemizlealert.ac();
+
+                } else if (menuItem.getItemId() == R.id.menu_ortakarkadaslar) {
+
+                    ChangeFragment changeFragment = new ChangeFragment(context);
+                    changeFragment.veriGonder(new FragmentOrtakGoruntule(), listeadi, "ortakGoruntuleFrag");
+
+                }
+
+
+                return true;
+            }
+        });
+
+    }
+
 
 }
 

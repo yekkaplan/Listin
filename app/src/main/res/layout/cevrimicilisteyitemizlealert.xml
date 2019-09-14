@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:padding="5dp">
 
 
     <LinearLayout
@@ -19,16 +19,17 @@
             android:gravity="center"
             android:text="Uyarı"
             android:textColor="@color/colorText"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="16dp"
+            android:textStyle="normal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="Tüm listeyi temizlemekten emin misiniz?"
             android:textColor="@color/colorText"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:textStyle="normal" />
 
 
@@ -46,7 +47,7 @@
                 android:layout_margin="10dp"
                 android:text="Temizle"
                 android:textColor="@color/red_error"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textStyle="normal" />
 
             <TextView
@@ -57,7 +58,7 @@
                 android:layout_toLeftOf="@+id/ctemizle"
                 android:text="İptal"
                 android:textColor="@color/colorText"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
 
         </RelativeLayout>

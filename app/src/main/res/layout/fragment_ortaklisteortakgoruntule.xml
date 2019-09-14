@@ -8,33 +8,18 @@
     android:orientation="vertical"
     tools:context=".Fragments.FragmentOrtaklisteOrtakgoruntule">
 
-    <RelativeLayout
-        android:id="@+id/ortakgoruntulerelativ"
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/ortaklisteortakgoruntuletoolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:theme="@style/ToolBarStyle">
 
-        <TextView
-            android:id="@+id/ortaklistortakgoruntulelisteadi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="Liste"
-            android:textColor="@color/colorBackgraound"
-            android:textSize="16dp"
-            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/ortaklistortakgoruntuleback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow" />
-    </RelativeLayout>
-
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/fragmentortakgoruntule"

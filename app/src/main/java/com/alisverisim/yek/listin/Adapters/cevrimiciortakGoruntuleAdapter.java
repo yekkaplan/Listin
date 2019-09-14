@@ -167,14 +167,15 @@ public class cevrimiciortakGoruntuleAdapter extends BaseAdapter {
                                                     String gelenlisteadi, kullaniciuid;
 
                                                     if (ds.child("listeadi").getValue(String.class) != null) {
-                                                        gelenlisteadi = ds.child("listeadi").getValue().toString();
-                                                        kullaniciuid = ds.child("kullaniciuid").getValue().toString();
+                                                        gelenlisteadi = ds.child("listeadi").getValue(String.class).toString();
+                                                        kullaniciuid = ds.child("kullaniciuid").getValue(String.class).toString();
 
                                                         if (gelenlisteadi.equals(listeadi) && kullaniciuid.equals(kuid)) {
                                                             String key = ds.getKey();
                                                             DatabaseReference databaseReference1 = firebaseDatabase.getReference("Users").child(list.get(position).getUid()).child("ortakListeler").child(key);
                                                             databaseReference1.removeValue();
                                                             dialog.dismiss();
+                                                            databaseReference.removeEventListener(this);
                                                         }
                                                     }
                                                 }
@@ -187,6 +188,9 @@ public class cevrimiciortakGoruntuleAdapter extends BaseAdapter {
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                     }
+
+
+
                                 });
 
                             }

@@ -8,50 +8,14 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/cevrimicirelativbar"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/colorPrimaryDark"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        app:theme="@style/ToolBarStyle">
 
-
-        <ImageView
-            android:id="@+id/cevrimicipopupTextview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_vertyirmi" />
-
-        <ImageView
-            android:id="@+id/cevrimicipaylasbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/cevrimicipopupTextview"
-            android:clickable="true"
-            android:src="@drawable/ic_shareyirmi" />
-
-
-        <TextView
-            android:id="@+id/cevrimicilistebasligi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="8dp"
-            android:text="Listin &amp; Çevrimiçi Listeler"
-            android:textColor="@color/colorBackgraound"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -59,12 +23,16 @@
         android:background="@color/colorBackgraound"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/cevrimicitumlistelerRecylerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+        <com.mlsdev.animatedrv.AnimatedRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:animationDuration="600"
+            app:layoutAnimation="@anim/layout_animation_from_bottom"
+            app:layoutManagerOrientation="vertical"
+            app:layoutManagerReverse="false"
+            app:layoutManagerType="linear" />
 
         <TextView
             android:id="@+id/tumlistelervisibletext"

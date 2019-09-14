@@ -51,8 +51,7 @@ public class cevrimiciIcerikAdapter extends RecyclerView.Adapter<cevrimiciIcerik
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
     List<UrunModels> urunList;
-    LinearLayout linearLayout;
-    List<notModel> notlistesi;
+
 
     public cevrimiciIcerikAdapter(Activity activity, Context context, List<UrunModels> urunList, String listeadi) {
         this.activity = activity;

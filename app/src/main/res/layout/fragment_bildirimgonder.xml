@@ -7,35 +7,17 @@
     android:background="@color/colorBackgraound"
     tools:context=".Fragments.FragmentBildirim">
 
-    <RelativeLayout
-        android:id="@+id/relativbar"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/bildirimgondertoolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:theme="@style/ToolBarStyle">
 
 
-
-        <TextView
-            android:id="@+id/bildirimlisteadi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="Liste"
-            android:textColor="@color/colorBackgraound"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/bildirimback"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow" />
-    </RelativeLayout>
-
+    </android.support.v7.widget.Toolbar>
 
 
     <TextView
@@ -54,7 +36,7 @@
         android:id="@+id/bildirimtxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativbar"
+        android:layout_below="@+id/bildirimgondertoolbar"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="8dp"

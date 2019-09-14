@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="5dp">
 
 
     <LinearLayout
@@ -16,10 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_check_circle"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:text="Bu listedeki tüm kullanıcılara ürün eklediğinize dair bildirim gönderilecektir."
             android:textColor="@color/colorTabText"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="normal" />
 
         <RelativeLayout
@@ -36,7 +37,7 @@
                 android:layout_margin="10dp"
                 android:text="Tamam"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="normal" />
 
 
@@ -48,7 +49,7 @@
                 android:layout_toLeftOf="@+id/onaylıyorumButton"
                 android:text="iptal"
                 android:textColor="@color/colorTabText"
-                android:textSize="18dp"
+                android:textSize="16dp"
                 android:textStyle="normal" />
         </RelativeLayout>
     </LinearLayout>

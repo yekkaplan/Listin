@@ -3,59 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorCardview"
+    android:background="@color/colorBackgraound"
     android:orientation="vertical">
 
 
-    <RelativeLayout
-        android:id="@+id/profilrelativbar"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/profiltoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@color/colorPrimaryDark"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp">
+        app:theme="@style/ToolBarStyle">
 
-
-        <ImageView
-            android:id="@+id/profilepopup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/ic_vertyirmi" />
-
-        <ImageView
-            android:id="@+id/profilepaylas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/profilepopup"
-            android:clickable="true"
-            android:src="@drawable/ic_shareyirmi" />
-
-
-        <TextView
-            android:id="@+id/cevrimicilistebasligi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="8dp"
-            android:text="Listin &amp; Çevrimiçi Listeler"
-            android:textColor="@color/colorBackgraound"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/profilrelativbar">
+        android:layout_below="@+id/profiltoolbar">
 
 
         <TableLayout
@@ -66,11 +31,8 @@
                 android:id="@+id/photocarview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="5dp"
                 app:cardBackgroundColor="@color/colorCardview"
-                app:cardCornerRadius="2dp"
-                app:cardElevation="2dp"
-                app:cardMaxElevation="2dp"
+                app:cardMaxElevation="0dp"
                 app:cardUseCompatPadding="true">
 
 
@@ -79,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="16dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/profile_image"
@@ -102,18 +64,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/photocarview"
-                android:elevation="2dp"
                 app:cardBackgroundColor="@color/colorCardview"
-                app:cardCornerRadius="2dp"
-                app:cardMaxElevation="2dp"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                app:contentPadding="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/kisiselbilgilertextview"
@@ -122,7 +81,7 @@
                         android:text="Kişisel Bilgileriniz"
                         android:textAlignment="center"
                         android:textColor="@color/colorTabText"
-                        android:textSize="20dp"
+                        android:textSize="18dp"
                         android:textStyle="bold" />
 
 
@@ -210,48 +169,56 @@
                         android:text="E-mail adresinizi diğer kullanıcılara vererek listelerini paylaşmalarını sağlayabilirsiniz."
                         android:textColor="@color/colorTabText"
                         android:textSize="13dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/profilBilgiGuncelle"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/eklebuttonback"
+                            android:text="Bilgileri güncellle"
+                            android:textAllCaps="false"
+                            android:textColor="#fff" />
+
+                        <Button
+                            android:id="@+id/cikisyapButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/exitbutton"
+                            android:text="Çıkış Yap"
+                            android:textAllCaps="false"
+                            android:textColor="#fff" />
+
+
+                        <Button
+                            android:id="@+id/kullanimvegizlilikbutton"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/eklebuttonback"
+                            android:text="Kullanım ve gizlilik sözleşmesi"
+                            android:textAllCaps="false"
+                            android:textColor="#fff" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:text="Bu uygulamayı kullanarak kullanıcı sözleşmesini kabul etmiş sayılırsınız."
+                        android:textSize="13dp" />
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/buttoncardview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/bilgilercardview"
-                android:elevation="5dp"
-                app:cardBackgroundColor="@color/colorCardview"
-                app:cardCornerRadius="2dp"
-                app:cardElevation="2dp"
-                app:cardMaxElevation="2dp"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/profilBilgiGuncelle"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:background="@drawable/eklebuttonback"
-                        android:text="Bilgileri güncellle"
-                        android:textAllCaps="false"
-                        android:textColor="#fff" />
-
-                    <Button
-                        android:id="@+id/cikisyapButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@drawable/exitbutton"
-                        android:text="Çıkış Yap"
-                        android:textAllCaps="false"
-                        android:textColor="#fff" />
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
         </TableLayout>
     </ScrollView>
 </RelativeLayout>

@@ -26,7 +26,6 @@ public class ChangeFragment {
 
         //  Burası activity içinde fragment tanımlaması için kullandıgım fonksiyon
         ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right, R.anim.exit_to_left)
                 .addToBackStack(null)
                 .replace(R.id.framelayout, fragment, "fragment")
                 .commit();
@@ -41,7 +40,6 @@ public class ChangeFragment {
 
         //  Burası activity içinde fragment tanımlaması için kullandıgım fonksiyon
         ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right, R.anim.exit_to_left)
                 .addToBackStack(null)
                 .replace(R.id.framelayout, fragment, "fragment")
                 .commit();
@@ -56,7 +54,6 @@ public class ChangeFragment {
 
         //  Burası activity içinde fragment tanımlaması için kullandıgım fonksiyon
         ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right, R.anim.exit_to_left)
                 .addToBackStack(null)
                 .replace(R.id.framelayout, fragment, "fragment")
                 .commit();
@@ -74,7 +71,6 @@ public class ChangeFragment {
 
         //  Burası activity içinde fragment tanımlaması için kullandıgım fonksiyon
         ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right, R.anim.exit_to_left)
                 .addToBackStack(null)
                 .replace(R.id.framelayout, fragment, "fragment")
                 .commit();

@@ -8,56 +8,22 @@
     android:background="@color/colorBackgraound"
     tools:context=".Fragments.FragmentOrtakListeİcerik">
 
-    <RelativeLayout
-        android:id="@+id/ortakicerikrelativ"
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ortaklisteiceriktoolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:theme="@style/ToolBarStyle">
 
-        <ImageView
-            android:id="@+id/listeyitemizle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:clickable="true"
-            android:src="@drawable/ic_sweep" />
 
-        <ImageView
-            android:id="@+id/ortakgoruntule"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="15dp"
-            android:layout_toLeftOf="@+id/listeyitemizle"
-            android:clickable="true"
-            android:src="@drawable/ic_people" />
-
-        <TextView
-            android:id="@+id/ortaklistebasliktext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_toRightOf="@+id/ortaklisteback"
-            android:gravity="center"
-            android:text="Liste"
-            android:textColor="@color/colorBackgraound"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/ortaklisteback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="15dp"
-            android:src="@drawable/ic_newarrow" />
-    </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ortakicerikrelativ"
+        android:layout_below="@+id/ortaklisteiceriktoolbar"
         android:orientation="vertical">
 
 

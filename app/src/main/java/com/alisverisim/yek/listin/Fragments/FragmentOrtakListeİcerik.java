@@ -9,9 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.alisverisim.yek.listin.Activitys.MainActivity;
 import com.alisverisim.yek.listin.Adapters.ortakListeİcerikAdapter;
+import com.alisverisim.yek.listin.AlertDialogs.cevrimicilisteyitemizlealert;
 import com.alisverisim.yek.listin.AlertDialogs.ortakListelisteyitemizlealert;
 import com.alisverisim.yek.listin.Models.UrunModels;
 import com.alisverisim.yek.listin.R;
@@ -56,6 +59,7 @@ public class FragmentOrtakListeİcerik extends Fragment {
     ImageView ortakgoruntule, listeyitemizle;
     HashMap<String, Boolean> hashMap;
     Context context;
+    Toolbar toolbar;
     Typeface typeface;
     TextView ortaklistevisible;
 
@@ -69,6 +73,7 @@ public class FragmentOrtakListeİcerik extends Fragment {
         tanimla();
         listeerisim();
         action();
+        tabAction();
         return view;
 
 
@@ -87,14 +92,10 @@ public class FragmentOrtakListeİcerik extends Fragment {
 
         bildirimfab = view.findViewById(R.id.ortakbildirimfab);
         ortakgoruntule = view.findViewById(R.id.ortakgoruntule);
-        listeyitemizle = view.findViewById(R.id.listeyitemizle);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
         listeadi = getArguments().getString("listeadi").toString();
         kuid = getArguments().getString("kuid").toString();
-        back = view.findViewById(R.id.ortaklisteback);
-        listeAdiTextview = view.findViewById(R.id.ortaklistebasliktext);
-        listeAdiTextview.setText(listeadi);
         recyclerView = view.findViewById(R.id.ortaklisteurunlerrecyler);
         RecyclerView.LayoutManager mng = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(mng);
@@ -253,41 +254,6 @@ public class FragmentOrtakListeİcerik extends Fragment {
         });
 
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                MainActivity.state = R.id.tab_ortak;
-                getActivity().onBackPressed();
-
-            }
-        });
-
-
-        listeyitemizle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ortakListelisteyitemizlealert ortaklistelisteyitemizlealert = new ortakListelisteyitemizlealert(getActivity(), listeadi, kuid);
-                ortaklistelisteyitemizlealert.ac();
-                editText.setText("");
-            }
-        });
-
-
-        ortakgoruntule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                ChangeFragment changeFragment = new ChangeFragment(getContext());
-                changeFragment.ikiVeriGonder(new FragmentOrtaklisteOrtakgoruntule(), listeadi, kuid, "ortaklisteortakgoruntuleFrag");
-
-
-            }
-        });
-
-
         bildirimfab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -331,6 +297,51 @@ public class FragmentOrtakListeİcerik extends Fragment {
 
         }
         return true;
+
+    }
+
+    private void tabAction() {
+
+
+        toolbar = view.findViewById(R.id.ortaklisteiceriktoolbar);
+
+
+        toolbar.setTitle("Ortak Listeler");
+        toolbar.setSubtitle(listeadi);
+        toolbar.inflateMenu(R.menu.cevrimici_icerik_menu);
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                getActivity().onBackPressed();
+                // back button pressed
+            }
+        });
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+
+                if (menuItem.getItemId() == R.id.menu_listeyitemizle) {
+
+                    ortakListelisteyitemizlealert ortaklistelisteyitemizlealert = new ortakListelisteyitemizlealert(getActivity(), listeadi, kuid);
+                    ortaklistelisteyitemizlealert.ac();
+                    editText.setText("");
+
+                } else if (menuItem.getItemId() == R.id.menu_ortakarkadaslar) {
+
+                    ChangeFragment changeFragment = new ChangeFragment(getContext());
+                    changeFragment.ikiVeriGonder(new FragmentOrtaklisteOrtakgoruntule(), listeadi, kuid, "ortaklisteortakgoruntuleFrag");
+
+                }
+
+
+                return true;
+            }
+        });
 
     }
 
