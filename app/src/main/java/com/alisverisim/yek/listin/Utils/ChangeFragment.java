@@ -2,14 +2,17 @@ package com.alisverisim.yek.listin.Utils;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
+import com.alisverisim.yek.listin.Models.UrunModels;
 import com.alisverisim.yek.listin.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChangeFragment {
@@ -61,15 +64,25 @@ public class ChangeFragment {
     }
 
 
-
-
-    public void arraysend(Fragment fragment, String listeadi,String uid) {
+    public void arraysend(Fragment fragment, String listeadi, String uid) {
         Bundle bundle = new Bundle();
-        bundle.putString("uid",uid);
+        bundle.putString("uid", uid);
         bundle.putString("listeadi", listeadi);
         fragment.setArguments(bundle);
 
         //  Burası activity içinde fragment tanımlaması için kullandıgım fonksiyon
+        ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.framelayout, fragment, "fragment")
+                .commit();
+
+    }
+
+
+    public void urunListSend(Fragment fragment, ArrayList<String> urunList) {
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList("tavsiyeurunlistesi", urunList);
+        fragment.setArguments(bundle);
         ((FragmentActivity) context).getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.framelayout, fragment, "fragment")

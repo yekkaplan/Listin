@@ -17,7 +17,10 @@
     <style name="Custom" parent="android:Theme.Holo.Light.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Yükleniyor..</item>
-        <item name="DialogSpotColor">@color/colorButton</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/muli_regular</item>
+        <item name="DialogSpotColor">@color/colorPrimaryDark</item>
         <item name="DialogSpotCount">8</item>
     </style>
 
@@ -33,5 +36,26 @@
         <item name="actionMenuTextColor">@android:color/white</item>
     </style>
 
+
+    <!-- ToolBar -->
+    <style name="autoCompleteTextStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+
+    </style>
+
+
+    <style name="ToolbarTitleTextApperance">
+        <item name="android:fontFamily">@font/muli</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ToolbarSubTitleTextApperance">
+        <item name="android:fontFamily">@font/muli_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

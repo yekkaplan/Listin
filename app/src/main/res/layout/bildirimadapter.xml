@@ -3,40 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorBackgraound"
+    android:background="@color/colorDeepCamaru"
     android:orientation="vertical">
 
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_margin="8dp"
+    app:contentPadding="8dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="6dp"
+    android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
+    <LinearLayout
+        android:id="@+id/bildirimlinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardBackgroundColor="@color/colorCardview"
-        card_view:cardCornerRadius="1dp"
-        card_view:cardMaxElevation="1dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:contentPadding="10dp">
+        android:clickable="true"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/bildirimlinear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bildirimimageview"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:clickable="true"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:src="@drawable/ic_ortakperson" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/bildirimimageview"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:clickable="true"
-                android:src="@drawable/ic_ortakperson" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_centerInParent="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
                 android:layout_height="match_parent">
-
 
                 <TextView
                     android:id="@+id/bildirimisimvesoyisim"
@@ -45,13 +50,14 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_toLeftOf="@+id/ortaktemizleicon"
-                    android:drawableStart="@drawable/ic_ortakisim"
+                    android:drawableStart="@drawable/ic_ortak_isim"
                     android:drawablePadding="5dp"
                     android:text="isim soyisim"
                     android:textAllCaps="false"
+                    android:fontFamily="@font/muli"
                     android:textColor="@color/colorTabText"
-                    android:textSize="16dp"
-                    android:textStyle="normal" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/bildirimemail"
@@ -59,19 +65,27 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/bildirimisimvesoyisim"
                     android:layout_marginLeft="15dp"
-                    android:drawableStart="@drawable/ic_mailicon"
+                    android:drawableStart="@drawable/ic_ortak_mail"
                     android:drawablePadding="5dp"
                     android:text="info@listin.com"
+                    android:fontFamily="@font/muli"
                     android:textAllCaps="false"
                     android:textColor="@color/colorTabText"
-                    android:textSize="16dp"
-                    android:textStyle="normal" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
 
-            </RelativeLayout>
-        </LinearLayout>
+            </LinearLayout>
 
 
-    </android.support.v7.widget.CardView>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
+
+
 
 </RelativeLayout>

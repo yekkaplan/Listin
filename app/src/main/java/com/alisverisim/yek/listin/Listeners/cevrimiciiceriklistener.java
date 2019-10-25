@@ -43,8 +43,7 @@ public class cevrimiciiceriklistener implements PopupMenu.OnMenuItemClickListene
 
             case R.id.urunenotekle:
 
-                notEkleAlertDialog notEkleAlertDialog = new notEkleAlertDialog(activity, listeadi, userUid, urunAdi);
-                notEkleAlertDialog.ac();
+
                 return true;
             default:
         }
@@ -54,8 +53,7 @@ public class cevrimiciiceriklistener implements PopupMenu.OnMenuItemClickListene
 
     private boolean urunsil() {
 
-        databaseReference = firebaseDatabase.getReference("Users").child(userUid).child("lists").child(listeadi).child("Urunler").child(urunAdi);
-        databaseReference.removeValue();
+
         return true;
 
     }

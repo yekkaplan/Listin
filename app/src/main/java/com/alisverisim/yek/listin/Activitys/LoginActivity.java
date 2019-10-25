@@ -3,6 +3,7 @@ package com.alisverisim.yek.listin.Activitys;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alisverisim.yek.listin.AlertDialogs.sifrenimiunuttunalert;
+import com.alisverisim.yek.listin.Fragments.login_fragment;
 import com.alisverisim.yek.listin.R;
+import com.alisverisim.yek.listin.Utils.ChangeFragment;
 import com.alisverisim.yek.listin.Utils.progressClass;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -39,6 +42,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.pd.chocobar.ChocoBar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,33 +50,20 @@ import java.util.Map;
 import dmax.dialog.SpotsDialog;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    FirebaseAuth firebaseAuth;
-    FirebaseUser firebaseUser;
-    EditText mail, password;
-    Button girisyapButton, googleilegirisyap;
-    TextView yeniHesap, sifreunuttumtextview;
-    Typeface tf1;
-    SpotsDialog profilProgress;
 
-    private FirebaseAuth mAuth;
-    DatabaseReference databaseReference, databaseReference2;
-    FirebaseDatabase firebaseDatabase, firebaseDatabase2;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private GoogleApiClient mGoogleApiClient;
     private static final int RC_SIGN_IN = 67;
     private DatabaseReference userref;
-    TextView textView;
 
+    public static GoogleApiClient mGoogleApiClient;
 
+    public static   GoogleSignInOptions gso;
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mAuth = FirebaseAuth.getInstance();
-        define();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+       gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -81,8 +72,32 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
+        ChangeFragment changeFragment = new ChangeFragment(this);
+        changeFragment.change(new login_fragment(),"loginFrag");
+
+
+        /*
+        mAuth = FirebaseAuth.getInstance();
+      //  define();
+
+
+*/
 
     }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    /*
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+
 
     public void define() {
 
@@ -122,7 +137,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                     if (kullanıcıPassword.length() < 8 || kullanıcıPassword.length() > 12 || kullanıcıPassword.equals("")) {
 
-                        Toast.makeText(getApplicationContext(), "Şifren 8'den küçük 12'den büyük olmamalı.", Toast.LENGTH_SHORT).show();
+                        ChocoBar.builder().setBackgroundColor(getResources().getColor(R.color.colorPrimary))
+                                .setTextSize(16)
+                                .setTextColor(Color.parseColor("#FFFFFF"))
+                                .setTextTypefaceStyle(Typeface.NORMAL)
+                                .setText("Şifren 8 karakterden küçük 12 karakterden büyük olmamalı.")
+                                .setMaxLines(2)
+                                .centerText()
+                                .setIcon(R.drawable.ic_snackbar)
+                                .setActivity(LoginActivity.this)
+                                .setDuration(ChocoBar.LENGTH_SHORT)
+                                .build()
+                                .show();
 
                     } else {
 
@@ -151,7 +177,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                 } else {
 
-                    Toast.makeText(getApplicationContext(), "Geçerli bir email adresi girmelisin.", Toast.LENGTH_SHORT).show();
+                    ChocoBar.builder().setBackgroundColor(getResources().getColor(R.color.colorPrimary))
+                            .setTextSize(16)
+                            .setTextColor(Color.parseColor("#FFFFFF"))
+                            .setTextTypefaceStyle(Typeface.NORMAL)
+                            .setText("Geçerli bir email adresi girmelisin.")
+                            .setMaxLines(2)
+                            .centerText()
+                            .setIcon(R.drawable.ic_snackbar)
+                            .setActivity(LoginActivity.this)
+                            .setDuration(ChocoBar.LENGTH_SHORT)
+                            .build()
+                            .show();
+
                 }
 
 
@@ -214,12 +252,40 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                         } else if (task.getException().getMessage().equals("The password is invalid or the user does not have a password.")) {
 
-                            Toast.makeText(getApplicationContext(), "Şifreniz hatalı!", Toast.LENGTH_SHORT).show();
+                            ChocoBar.builder().setBackgroundColor(getResources().getColor(R.color.colorPrimary))
+                                    .setTextSize(16)
+                                    .setTextColor(Color.parseColor("#FFFFFF"))
+                                    .setTextTypefaceStyle(Typeface.NORMAL)
+                                    .setText("Şifreniz hatalı!")
+                                    .setMaxLines(2)
+                                    .centerText()
+                                    .setIcon(R.drawable.ic_snackbar)
+                                    .setActivity(LoginActivity.this)
+                                    .setDuration(ChocoBar.LENGTH_SHORT)
+                                    .build()
+                                    .show();
+
+
+
                             profilProgress.dismiss();
 
                         } else if (task.getException().getMessage().equals("There is no user record corresponding to this identifier. The user may have been deleted.")) {
 
-                            Toast.makeText(getApplicationContext(), "Böyle bir kullanıcı bulunamadı..", Toast.LENGTH_SHORT).show();
+                            ChocoBar.builder().setBackgroundColor(getResources().getColor(R.color.colorPrimary))
+                                    .setTextSize(16)
+                                    .setTextColor(Color.parseColor("#FFFFFF"))
+                                    .setTextTypefaceStyle(Typeface.NORMAL)
+                                    .setText("Böyle bir kullanıcı bulunamadı..")
+                                    .setMaxLines(2)
+                                    .centerText()
+                                    .setIcon(R.drawable.ic_snackbar)
+                                    .setActivity(LoginActivity.this)
+                                    .setDuration(ChocoBar.LENGTH_SHORT)
+                                    .build()
+                                    .show();
+
+
+
                             profilProgress.dismiss();
 
                         } else {
@@ -376,6 +442,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
+
+
+*/
 
 }
 

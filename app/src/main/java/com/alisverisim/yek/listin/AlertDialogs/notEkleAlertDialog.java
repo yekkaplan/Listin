@@ -50,12 +50,14 @@ public class notEkleAlertDialog {
     }
 
     public void ac() {
-        LayoutInflater ınflater = activity.getLayoutInflater();
 
+
+
+
+        LayoutInflater ınflater = activity.getLayoutInflater();
         View view = ınflater.inflate(R.layout.noteklealert, null);
         TextView notekle, iptal;
         final EditText notedit;
-        final TextView basliktext;
         notekle = view.findViewById(R.id.noteklebutton);
         iptal = view.findViewById(R.id.notekleiptalbutton);
         notedit = view.findViewById(R.id.notedittext);
@@ -73,18 +75,9 @@ public class notEkleAlertDialog {
 
                 String not = notedit.getText().toString();
                 databaseReference = firebaseDatabase.getReference("Users").child(userid).child("lists").child(listeadi).child("Urunler").child(urunadi).child("notlar");
-                databaseReference.setValue(not).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                        if (task.isSuccessful()) {
-
-                            dialog.dismiss();
-                        }
+                databaseReference.setValue(not);
 
 
-                    }
-                });
 
 
             }
@@ -99,7 +92,6 @@ public class notEkleAlertDialog {
                 dialog.dismiss();
             }
         });
-
 
     }
 

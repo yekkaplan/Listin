@@ -2,6 +2,8 @@ package com.alisverisim.yek.listin.AlertDialogs;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pd.chocobar.ChocoBar;
 
 import java.util.HashMap;
 import java.util.List;
@@ -94,13 +97,21 @@ public class cevrimiciListeEkleAlert {
                     } else {
 
 
-                        Toast.makeText(activity.getApplicationContext(), "Böyle bir liste zaten var.", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(activity,"Böyle bir liste zaten var.",Toast.LENGTH_SHORT).show();
+
+
+
 
                     }
 
                 } else {
 
-                    Toast.makeText(activity.getApplicationContext(), "Liste adı boş bırakılamaz.", Toast.LENGTH_SHORT).show();
+
+
+                    Toast.makeText(activity,"Liste adı boş bırakılamaz.",Toast.LENGTH_SHORT).show();
+
+
                 }
 
 

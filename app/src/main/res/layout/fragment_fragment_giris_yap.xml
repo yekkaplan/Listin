@@ -1,0 +1,185 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/logingrandient"
+    android:fillViewport="true">
+
+
+    <ImageView
+        android:id="@+id/back_pressed"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_arrow"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"></ImageView>
+
+
+    <LinearLayout
+        android:id="@+id/linear_tab"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginLeft="24dp"
+        android:gravity="center"
+        android:layout_marginTop="45dp"
+        android:layout_height="wrap_content">
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:id="@+id/login_logo"
+            android:src="@drawable/login_screen_image"
+            android:layout_height="100dp">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Listin"
+            android:textColor="@color/white"
+            android:padding="16dp"
+            android:textSize="30dp"
+            android:fontFamily="@font/muli_light"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+
+        </TextView>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/login_liner"
+        android:layout_below="@+id/linear_tab"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/kullanim_gizlilik_textview"
+        android:paddingTop="8dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:textSize="28dp"
+            android:text="Çevrimiçi listeler yaratmanın\nen pratik yolu"
+            android:textColor="@color/white"
+            android:fontFamily="@font/muli_regular"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"></TextView>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_email"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="24dp"
+            android:textColorHint="@color/white"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                android:fontFamily="@font/muli_regular"
+                android:hint="E-mail adresi" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_pass"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="24dp"
+            android:textColorHint="@color/white"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/input_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/white"
+                android:hint="Parolanız" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/login_button"
+            style="@style/Theme.MaterialComponents.Light"
+            android:layout_width="match_parent"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="24dp"
+            android:clickable="true"
+            android:textSize="14sp"
+            app:iconTint="@color/colorDeepCamaru"
+            app:backgroundTint="@color/colorAccent"
+            android:textAlignment="center"
+            android:textColor="@color/colorDeepCamaru"
+            android:layout_height="wrap_content"
+            app:cornerRadius="20dp"
+            android:fontFamily="@font/muli_regular"
+            android:text="Giriş yap"
+            android:elevation="4dp"
+            app:iconGravity="start"
+            app:iconPadding="-24dp"
+            android:textStyle="bold" />
+
+
+
+        <TextView
+            android:id="@+id/sifrenimi_unuttun"
+            android:layout_width="match_parent"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp"
+            android:text="Parolanımı unuttun?"
+            android:textColor="@color/white"
+            android:fontFamily="@font/muli_light"
+            android:layout_alignParentBottom="true"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"></TextView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+            </android.support.v4.widget.Space>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/kullanim_gizlilik_textview"
+        android:layout_width="match_parent"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        android:text="Kullanım ve gizlilik sözleşmesi"
+        android:textColor="@color/white"
+        android:fontFamily="@font/muli_regular"
+        android:layout_alignParentBottom="true"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"></TextView>
+</RelativeLayout>

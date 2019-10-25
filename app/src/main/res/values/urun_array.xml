@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="countries_array">
+        <item>Ekmek</item>
+        <item>Kola</item>
+        <item>Cips</item>
+        <item>Patates</item>
+        <item>Soğan</item>
+        <item>Lahana</item>
+        <item>Marul</item>
+        <item>Patlıcan</item>
+        <item>Çikolata</item>
+        <item>Bitter Çikolata</item>
+
+    </string-array>
+</resources>

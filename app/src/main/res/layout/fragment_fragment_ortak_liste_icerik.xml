@@ -1,133 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contextView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgraound"
+    android:background="@color/colorDeepCamaru"
+    android:orientation="vertical"
     tools:context=".Fragments.FragmentOrtakListeİcerik">
-
-
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ortaklisteiceriktoolbar"
+        android:id="@+id/ortakiceriktoolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:theme="@style/ToolBarStyle">
 
-
     </android.support.v7.widget.Toolbar>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ortaklisteiceriktoolbar"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/cevrimiciiceriktoolbar">
 
 
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/ortaklisteurunaditextfield"
+        <LinearLayout
+            android:id="@+id/tavsiyeUrunRelativ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:theme="@style/TextFieldBoxes"
-            app:endIcon="@drawable/ic_add_shopping_cart"
-            app:errorColor="@color/red_error"
-            app:helperTextColor="#795548"
-            app:labelText="Ürün Adını Giriniz"
-            app:panelBackgroundColor="@color/colorCardview"
-            app:primaryColor="@color/colorPrimary"
-            app:useDenseSpacing="true">
-
-            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/ortaklisteurunadiedittext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1" />
-
-        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+            android:layout_below="@+id/separatorFragmentcevrimici"
+            android:background="#F9A825"
+            android:orientation="horizontal"
+            android:divider="@drawable/divider"
+            android:dividerPadding="2.5dp"
+            android:showDividers="middle"
+            android:padding="4dp"
+            android:weightSum="2">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/ortaklisteurunlerrecyler"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+
+                <TextView
+                    android:id="@+id/ortakTavsiyeGoruntule"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_product"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/muli_regular"
+                    android:gravity="center_vertical|right"
+                    android:text="Tavsiye liste"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+
+                <TextView
+                    android:id="@+id/ortakBildirimGonder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_urunaldim"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/muli_regular"
+                    android:gravity="center_vertical|right"
+                    android:text="Ürün aldım!"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="13sp"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/otomatikTamamlamaRelativ"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/ortaklisteurunaditextfield"></android.support.v7.widget.RecyclerView>
+            android:layout_height="60dp"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:orientation="vertical">
 
-
-        <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/menu2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            fab:menu_animationDelayPerItem="50"
-            fab:menu_backgroundColor="@android:color/transparent"
-            fab:menu_buttonSpacing="0dp"
-            fab:menu_colorNormal="@color/secondaryPink"
-            fab:menu_colorPressed="@color/colorPrimary"
-            fab:menu_colorRipple="#99FFFFFF"
-            fab:menu_fab_size="normal"
-            fab:menu_icon="@drawable/fab_add"
-            fab:menu_labels_colorNormal="#333333"
-            fab:menu_labels_colorPressed="#444444"
-            fab:menu_labels_colorRipple="#66FFFFFF"
-            fab:menu_labels_cornerRadius="3dp"
-            fab:menu_labels_ellipsize="none"
-            fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
-            fab:menu_labels_margin="0dp"
-            fab:menu_labels_maxLines="-1"
-            fab:menu_labels_padding="8dp"
-            fab:menu_labels_paddingBottom="4dp"
-            fab:menu_labels_paddingLeft="8dp"
-            fab:menu_labels_paddingRight="8dp"
-            fab:menu_labels_paddingTop="4dp"
-            fab:menu_labels_position="left"
-            fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-            fab:menu_labels_showShadow="true"
-            fab:menu_labels_singleLine="false"
-            fab:menu_labels_style="@color/colorPrimaryDark"
-            fab:menu_labels_textColor="#FFFFFF"
-            fab:menu_labels_textSize="14sp"
-            fab:menu_openDirection="up"
-            fab:menu_shadowColor="#66000000"
-            fab:menu_shadowRadius="4dp"
-            fab:menu_shadowXOffset="1dp"
-            fab:menu_shadowYOffset="3dp"
-            fab:menu_showShadow="true">
-
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/ortakbildirimfab"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/autoCompleteRelativ"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_mobile_screen_share"
-                fab:fab_colorNormal="@color/secondaryPink"
-                fab:fab_colorPressed="@color/colorPrimary"
-                fab:fab_label="Bildirim Gönder"
-                fab:fab_size="mini" />
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="4dp">
 
+                <AutoCompleteTextView
+                    android:id="@+id/ortakAutoCompleteTextview"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/urunekleback"
+                    android:fontFamily="@font/muli_regular"
+                    android:hint="Satın almak istediğiniz ürün?"
+                    android:padding="4dp"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:textSize="13sp"
+                    ></AutoCompleteTextView>
 
-        </com.github.clans.fab.FloatingActionMenu>
+                <ImageView
+                    android:id="@+id/ortaklisteIcerikUrunEkleImageview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_addtocart"></ImageView>
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/ortaklistevisible"
+            android:id="@+id/ortaklisteVisibleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:drawableTop="@drawable/ic_remove_shopping_cart"
-            android:text="Listede ürün bulunamadı."
-            android:textColor="@color/colorTabText"
-            android:textSize="15dp"
-            android:textStyle="normal"
-            android:visibility="invisible" />
+            android:drawableTop="@drawable/ic_empty_shopping_cart"
+            android:text="Listede ürün bulunamadı, \nyeni ürün ekleyebilirsiniz."
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/muli_regular"
+            android:textStyle="bold"
+            android:visibility="visible" />
+
+        <View
+            android:id="@+id/separatorFragmentcevrimici"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@+id/otomatikTamamlamaRelativ"
+            android:background="@color/separatorColor" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ortaklisteIcerikRecylerview"
+            android:layout_width="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tavsiyeUrunRelativ">
+
+
+        </android.support.v7.widget.RecyclerView>
+
+
     </RelativeLayout>
 
-</RelativeLayout>
+
+
+
+</LinearLayout>

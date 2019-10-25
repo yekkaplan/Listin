@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     public static String kuid, mail;
     public static int state = R.id.tab_cevrimici;
 
-    boolean doubleBackToExitPressedOnce = false;
 
     private static final String LOG_TAG = "Otomatik internet Kontrol¸";
     private NetworkChangeReceiver receiver;//Network dinleyen receiver objemizin referans˝
@@ -152,8 +151,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 }
 

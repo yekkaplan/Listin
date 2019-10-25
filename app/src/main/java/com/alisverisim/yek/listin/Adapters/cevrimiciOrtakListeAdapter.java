@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,19 +84,11 @@ public class cevrimiciOrtakListeAdapter extends RecyclerView.Adapter<cevrimiciOr
         });
 
 
-        viewHolder.ortaklarliner.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
+        kuid = liste.get(i).getKullaniciuid();
+        listeadi = liste.get(i).getListeadi();
+        listekey = liste.get(i).getListekey();
+        viewHolder.bind(listeadi,kuid,listekey);
 
-
-                kuid = liste.get(i).getKullaniciuid();
-                listeadi = liste.get(i).getListeadi();
-                listekey = liste.get(i).getListekey();
-                ortaklistesilmealert ortaklistesilmealert = new ortaklistesilmealert(activity, listeadi, kuid, listekey);
-                ortaklistesilmealert.ac();
-                return false;
-            }
-        });
         /*
 
                 Toast.makeText(context, "Listeden ayrıldınız.", Toast.LENGTH_SHORT).show();
@@ -119,16 +112,38 @@ public class cevrimiciOrtakListeAdapter extends RecyclerView.Adapter<cevrimiciOr
         // burada tanımlama sebebi altclass'da erişmesi yani global işte :)
 
         TextView baslikTextview;
-        ImageView overflow;
+        TextView ortaklistesilswipe;
         Typeface typeface;
-        LinearLayout ortaklarliner;
+        RelativeLayout ortaklarliner;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             typeface = Typeface.createFromAsset(activity.getAssets(), "fonts/yekfont.ttf");
             ortaklarliner = itemView.findViewById(R.id.ortaklartumlisteliner);
             baslikTextview = itemView.findViewById(R.id.cortaktumlistebaslik);
+            ortaklistesilswipe = itemView.findViewById(R.id.ortak_liste_sil_swipe);
         }
+
+
+        private void bind(final String listeAdi, final String kuid, final String listekey){
+
+
+
+
+            ortaklistesilswipe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    ortaklistesilmealert ortaklistesilmealert = new ortaklistesilmealert(activity, listeAdi, kuid, listekey);
+                    ortaklistesilmealert.ac();
+                }
+            });
+
+
+
+        }
+
     }
 
 }

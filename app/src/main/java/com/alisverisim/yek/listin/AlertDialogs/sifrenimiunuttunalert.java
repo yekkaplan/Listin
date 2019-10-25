@@ -40,7 +40,6 @@ public class sifrenimiunuttunalert {
     public void ac() {
 
 
-
         LayoutInflater ınflater = activity.getLayoutInflater();
 
         View view = ınflater.inflate(R.layout.sifrenimiunuttun, null);
@@ -74,11 +73,18 @@ public class sifrenimiunuttunalert {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
 
-                                    Toast.makeText(activity, "Şifre sıfırlama e-mail'i gönderildi! E-mail adresinizi kontrol edin.", Toast.LENGTH_LONG).show();
+
+                                    Toast.makeText(activity, "Şifre sıfırlama e-maili gönderildi! E-mail adresinizi kontrol edin.", Toast.LENGTH_SHORT).show();
+
+
                                     progressClass.progressPasif();
                                     dialog.dismiss();
                                 } else {
-                                    Toast.makeText(activity, "E-mail adresinizi kontrol edin.", Toast.LENGTH_LONG).show();
+
+
+                                    Toast.makeText(activity, "Böyle bir email sistemde kayıtlı değil.", Toast.LENGTH_SHORT).show();
+
+
                                     progressClass.progressPasif();
 
                                 }

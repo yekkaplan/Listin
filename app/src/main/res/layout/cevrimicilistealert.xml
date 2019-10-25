@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/colorDeepCamaru"
     android:padding="16dp">
 
 
@@ -14,12 +15,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_urunadd"
-            android:fontFamily="sans-serif"
+            android:drawableTop="@drawable/ic_listadd"
+            android:fontFamily="@font/muli_regular"
             android:gravity="center"
             android:text="Liste adını giriniz:"
-            android:textSize="16dp"
-            android:textStyle="normal" />
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/menualertedittext"
@@ -28,7 +30,10 @@
             android:digits="0123456789*' ,qwertzuiopasdfghjklyxcvbnmşöüçı,ÇQWERTZUİIÖÜŞOPASDFGİJKLYXCVBNM"
             android:hint="örn:pazar alışverişi"
             android:maxLength="23"
-            android:textSize="16dp" />
+            android:fontFamily="@font/muli_regular"
+            android:textColor="@color/white"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="16sp" />
 
 
         <RelativeLayout
@@ -43,8 +48,9 @@
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@+id/menualertbutton"
                 android:text="İptal"
-                android:textColor="@color/colorTabText"
-                android:textSize="16dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/muli_regular"
                 android:textStyle="normal" />
 
             <TextView
@@ -54,8 +60,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
                 android:text="Oluştur"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16dp"
+                android:fontFamily="@font/muli_regular"
+
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
         </RelativeLayout>

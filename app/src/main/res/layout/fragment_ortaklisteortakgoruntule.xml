@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgraound"
+    android:background="@color/colorDeepCamaru"
     android:orientation="vertical"
-    tools:context=".Fragments.FragmentOrtaklisteOrtakgoruntule">
-
+    tools:context=".Fragments.FragmentOrtakGoruntule">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/ortaklisteortakgoruntuletoolbar"
@@ -21,10 +20,13 @@
 
     </android.support.v7.widget.Toolbar>
 
+
+
     <RelativeLayout
         android:id="@+id/fragmentortakgoruntule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorDeepCamaru"
         android:orientation="vertical">
 
         <TextView
@@ -47,12 +49,13 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="16dp"
-            android:drawableTop="@drawable/ic_supervised_user_circle"
+            android:drawableTop="@drawable/ic_ortaklargoruntule"
             android:gravity="center"
-            android:text="Bu Listedeki Kullanıcılar"
-            android:textColor="@color/colorTabText"
-            android:textSize="18dp"
-            android:textStyle="normal" />
+            android:text="Liste Ortaklarınız"
+            android:fontFamily="@font/muli"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
 
         <ListView

@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:background="@color/colorDeepCamaru"
+
+    android:padding="16dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -18,8 +19,9 @@
             android:drawableTop="@drawable/ic_warning"
             android:gravity="center"
             android:text="Uygulamayı kullanabilmek için lütfen internete bağlanın."
-            android:textColor="@color/colorText"
-            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/muli_regular"
             android:textStyle="normal" />
 
         <RelativeLayout
@@ -35,7 +37,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
                 android:text="Tamam"
-                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/colorAccent"
                 android:textSize="16dp"
                 android:textStyle="normal" />
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgraound"
+    android:background="@color/colorDeepCamaru"
     tools:context=".Fragments.FragmentBildirim">
 
     <android.support.v7.widget.Toolbar
@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimaryDark"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:theme="@style/ToolBarStyle">
+        app:theme="@style/ToolBarStyle"
+        app:navigationIcon="?attr/homeAsUpIndicator">
 
 
     </android.support.v7.widget.Toolbar>
@@ -40,25 +40,31 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="8dp"
-        android:drawableTop="@drawable/ic_largesend"
+        android:drawableTop="@drawable/ic_bildirim_gonder"
         android:gravity="center"
+        android:fontFamily="@font/muli"
         android:text="Bildirim Gönder"
-        android:textColor="@color/colorTabText"
-        android:textSize="18dp"
-        android:textStyle="normal" />
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/ipucutext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bildirimtxt"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:text="İpucu: Bildirim göndermek istediğiniz kullanıcının üzerine dokunun. Sadece bir defa bildirim gönderebilirsiniz."
-        android:textSize="14dp" />
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/muli"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginRight="8dp"
+        android:text="İpucu: Bildirim göndermek istediğiniz kullanıcının üzerine dokunun."
+        android:textSize="14sp" />
 
 
     <ListView
+        android:layout_marginTop="8dp"
         android:id="@+id/bildirimgonderlistview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

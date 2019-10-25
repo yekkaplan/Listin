@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,7 +14,6 @@ import com.alisverisim.yek.listin.Activitys.MainActivity;
 import com.alisverisim.yek.listin.Adapters.cevrimiciortakGoruntuleAdapter;
 import com.alisverisim.yek.listin.Models.kullanicieklemodel;
 import com.alisverisim.yek.listin.R;
-import com.alisverisim.yek.listin.Utils.ChangeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,9 +34,8 @@ public class FragmentOrtakGoruntule extends Fragment {
     ListView listView;
     FirebaseUser firebaseUser;
     String listeadi;
-    ImageView back;
     TextView visibletext;
-    TextView goruntulelisteadi;
+    ValueEventListener msendListener;
     TextView txt;
     Toolbar toolbar;
     View view;
@@ -58,6 +54,18 @@ public class FragmentOrtakGoruntule extends Fragment {
         toolbarAction();
         return view;
 
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+
+        if (msendListener != null) {
+
+            databaseReference.removeEventListener(msendListener);
+        }
     }
 
     public void firebaseTanimla() {
@@ -79,7 +87,7 @@ public class FragmentOrtakGoruntule extends Fragment {
 
             firebaseDatabase = FirebaseDatabase.getInstance();
             databaseReference = firebaseDatabase.getReference("Users").child(MainActivity.kuid).child("lists").child(listeadi).child("listeortaklari");
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            ValueEventListener valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -131,7 +139,12 @@ public class FragmentOrtakGoruntule extends Fragment {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
-            });
+            };
+
+
+            databaseReference.addValueEventListener(valueEventListener);
+
+            msendListener = valueEventListener;
         }
 
     }
@@ -147,7 +160,10 @@ public class FragmentOrtakGoruntule extends Fragment {
             public void onClick(View v) {
 
 
+                    databaseReference.removeEventListener(msendListener);
+
                 getActivity().onBackPressed();
+
                 // back button pressed
             }
         });

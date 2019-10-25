@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#1a237e</color>
     <color name="colorPrimaryDark">#1a237e</color>
-    <color name="colorAccent">#534bae</color>
+    <color name="colorAccent">#F9A825</color>
     <color name="secondaryPink">#D43C6E</color>
     <color name="colorTabText">#2c3e50</color>
     <color name="colorCardview">#F9FAF9</color>
@@ -12,5 +12,19 @@
     <color name="colorIptalButton">#00b894</color>
     <color name="colorText">#6c7a89</color>
     <color name="colorAcıkMavi">#ecf0f1</color>
+    <color name="colorDeepCamaru">#30336b</color>
+    <color name="separatorColor">#18102C</color>
+    <color name="pink">#FF308E</color>
+    <color name="orange">#FA9301</color>
+    <color name="yellow">#F8D411</color>
+    <color name="blue">#20CBF3</color>
+    <color name="purple">#6F26FA</color>
+    <color name="green">#49CC56</color>
+    <color name="white">#FFFFFF</color>
+    <color name="turkuaz">#00cec9</color>
+    <color name="colorSucces">#f39c12</color>
+    <color  name="colorDisable">#7986CB</color>
+    <color name="colorNotEkle">#10ac84</color>
+    <color name="colorUrunSil">#ee5253</color>
 
 </resources>

@@ -1,84 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cevrimiciicerikliner"
+    android:id="@+id/swipe_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    app:dragEdge="right"
+    app:mode="same_level">
 
+    <LinearLayout
+        android:id="@+id/delete_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@color/colorDeepCamaru">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
+        <TextView
+            android:id="@+id/silSwipe"
+            android:clickable="true"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorUrunSil"
+            android:gravity="center"
+            android:text="Ürünü sil"
+            android:textSize="14sp"
+            android:fontFamily="@font/muli"
+            android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/notEkleSwipe"
+            android:clickable="true"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorNotEkle"
+            android:gravity="center"
+            android:text="Not ekle"
+            android:textSize="14sp"
+            android:fontFamily="@fonts/muli"
+            android:textColor="@android:color/white" />
+        <TextView
+            android:id="@+id/notDuzenleSwipe"
+            android:clickable="true"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@color/purple"
+            android:gravity="center"
+            android:text="Not Düzenle"
+            android:textSize="14sp"
+            android:fontFamily="@font/muli"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/front_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:cardBackgroundColor="@color/colorYellow"
-        card_view:cardCornerRadius="0dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:contentPadding="8dp">
-
+        android:layout_height="70dp"
+        android:background="@color/colorDeepCamaru">
 
         <LinearLayout
+            android:id="@+id/liner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/ccuruncheckbox"
             android:orientation="vertical">
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.AppCompatCheckBox
-                    android:id="@+id/ccuruncheckbox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_toLeftOf="@+id/cevrimiciicerikpopup"
-                    android:text="Ürün Adı"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorTabText"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
-
-
-                <ImageView
-                    android:id="@+id/cevrimiciicerikpopup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:clickable="true"
-                    android:src="@drawable/ic_more_icerik" />
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:id="@+id/notlinearlayout"
+            <TextView
+                android:id="@+id/urunadiTextfield"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:fontFamily="@font/muli_regular"
+                android:text="Ürün adı:"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"></TextView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="3dp"
-                    android:text="Not:"
-                    android:textColor="@color/colorTabText"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/not"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/muli_regular"
+                android:text="Ürün notu:"
+                android:textColor="@color/white"
+                android:textSize="13sp"></TextView>
 
-                <TextView
-                    android:id="@+id/not"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorTabText"
-                    android:textSize="16dp"
-                    android:textStyle="normal" />
-            </LinearLayout>
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/ccuruncheckbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="16dp"
+            android:button="@drawable/checkbox_selector" />
+    </RelativeLayout>
 
 
-</LinearLayout>
+</com.chauthai.swipereveallayout.SwipeRevealLayout>

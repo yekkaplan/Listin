@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/colorDeepCamaru"
     android:padding="16dp">
 
 
@@ -15,10 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_contact_mail"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/muli_regular"
             android:gravity="center"
+            android:textColor="@color/white"
             android:text="Kayıt olurken kullandığınız e-mail adresini giriniz:"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:textStyle="normal" />
 
         <EditText
@@ -27,6 +29,9 @@
             android:layout_height="match_parent"
             android:cursorVisible="false"
             android:hint="E-mail"
+            android:textColor="@color/white"
+            android:fontFamily="@font/muli_regular"
+            android:textColorHint="@android:color/darker_gray"
             android:inputType="textEmailAddress"
             android:textSize="16dp" />
 
@@ -43,7 +48,8 @@
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@+id/sifresifirlatext"
                 android:text="İptal"
-                android:textColor="@color/colorTabText"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="normal" />
 
@@ -54,7 +60,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
                 android:text="Şifreyi Sıfırla"
-                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/colorAccent"
                 android:textSize="16dp"
                 android:textStyle="normal" />
 

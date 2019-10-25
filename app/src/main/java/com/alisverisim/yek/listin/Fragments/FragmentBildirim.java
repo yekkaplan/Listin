@@ -7,14 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alisverisim.yek.listin.Adapters.bildirimAdapter;
 import com.alisverisim.yek.listin.R;
-import com.alisverisim.yek.listin.Utils.ChangeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,14 +26,13 @@ import java.util.ArrayList;
 public class FragmentBildirim extends Fragment {
     String listeadi;
     View view;
-    ArrayList<String> kuidList;
     ListView listView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
-    ImageView backbutton;
     Toolbar toolbar;
+    ValueEventListener mValueEventListener;
     String uid;
     TextView visibletext, ipucutext, altbasliktext;
     com.alisverisim.yek.listin.Adapters.bildirimAdapter bildirimAdapter;
@@ -47,7 +43,7 @@ public class FragmentBildirim extends Fragment {
         view = inflater.inflate(R.layout.fragment_bildirimgonder, container, false);
 
         listeadi = getArguments().getString("listeadi");
-        uid = getArguments().getString("uid");
+        uid = getArguments().getString("kuid");
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -56,6 +52,17 @@ public class FragmentBildirim extends Fragment {
         toolbarAction();
         return view;
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mValueEventListener != null) {
+
+
+            databaseReference.removeEventListener(mValueEventListener);
+        }
     }
 
     public void tanimla() {
@@ -67,14 +74,12 @@ public class FragmentBildirim extends Fragment {
     }
 
 
-
     public void listele() {
 
-
-        databaseReference = firebaseDatabase.getReference().child("Users").child(uid).child("lists").child(listeadi).child("listeortaklari");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
 
                 ArrayList<String> uidList = new ArrayList<>();
                 if (dataSnapshot.exists()) {
@@ -123,15 +128,21 @@ public class FragmentBildirim extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
 
+        databaseReference = firebaseDatabase.getReference().child("Users").child(uid).child("lists").child(listeadi).child("listeortaklari");
 
+        databaseReference.addValueEventListener(valueEventListener);
+
+        mValueEventListener = valueEventListener;
     }
 
 
     private void toolbarAction() {
 
         toolbar = view.findViewById(R.id.bildirimgondertoolbar);
+        toolbar.setSubtitleTextAppearance(getContext(), R.style.ToolbarSubTitleTextApperance);
+        toolbar.setTitleTextAppearance(getContext(), R.style.ToolbarTitleTextApperance);
         toolbar.setTitle("Bildirim Gönder");
         toolbar.setSubtitle(listeadi);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -139,8 +150,10 @@ public class FragmentBildirim extends Fragment {
             public void onClick(View v) {
 
 
-                getActivity().onBackPressed();
-                // back button pressed
+
+                    databaseReference.removeEventListener(mValueEventListener);
+                    getActivity().onBackPressed();
+
             }
         });
     }

@@ -1,6 +1,8 @@
 package com.alisverisim.yek.listin.AlertDialogs;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,15 +15,6 @@ import com.alisverisim.yek.listin.Activitys.MainActivity;
 import com.alisverisim.yek.listin.Models.kullanicieklemodel;
 import com.alisverisim.yek.listin.R;
 import com.alisverisim.yek.listin.Utils.progressClass;
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,13 +22,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.pd.chocobar.ChocoBar;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class cevrimiciKullanicialert {
 
@@ -73,6 +64,7 @@ public class cevrimiciKullanicialert {
         TextView button = view.findViewById(R.id.cevrimiciurunmenualertbutton);
         TextView iptalbutton = view.findViewById(R.id.cevrimciciuruniptalbuttonyenidenadlandır);
         android.support.v7.app.AlertDialog.Builder alert = new android.support.v7.app.AlertDialog.Builder(activity);
+
         alert.setView(view);
         alert.setCancelable(true);
         final android.support.v7.app.AlertDialog dialog = alert.create();
@@ -90,13 +82,17 @@ public class cevrimiciKullanicialert {
 
                 String key = emaillistesi.get(email);
 
-                // buralar baya uğraştırdı umarım diğer projelerde faydalı olur :d
                 if (key == null) {
 
-                    Toast.makeText(activity, "Böyle bir email kayıtlı değil.", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(activity,"Böyle bir email kayıtlı değil.",Toast.LENGTH_SHORT).show();
+
+
                 } else if (email.equals(MainActivity.mail)) {
 
-                    Toast.makeText(activity, "Kendi mailiniz ile işlem yapamazsınız..", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(activity,"Kendi mailiniz ile işlem yapamazsınız.",Toast.LENGTH_SHORT).show();
+
 
                 } else if (key != null) {
 
@@ -140,6 +136,8 @@ public class cevrimiciKullanicialert {
 
                             Log.i("deneme", ds.child("email").getValue(String.class).toString() + "  keyy: " + ds.getKey() + " ");
                             emaillistesi.put(ds.child("email").getValue(String.class).toString(), ds.getKey());
+
+                            databaseReference2.removeEventListener(this);
 
                         }
                     }

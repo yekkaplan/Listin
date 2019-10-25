@@ -4,20 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.alisverisim.yek.listin.Activitys.MainActivity;
 import com.alisverisim.yek.listin.Adapters.cevrimiciortakGoruntuleAdapter;
 import com.alisverisim.yek.listin.Models.kullanicieklemodel;
 import com.alisverisim.yek.listin.R;
-import com.alisverisim.yek.listin.Utils.ChangeFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,9 +34,8 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
     ListView listView;
     FirebaseUser firebaseUser;
     String listeadi;
-    ImageView back;
+    ValueEventListener mSendValueEventListener;
     TextView visibletext;
-    TextView goruntulelisteadi;
     TextView txt;
     Toolbar toolbar;
     View view;
@@ -62,6 +56,17 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (mSendValueEventListener != null) {
+
+
+            databaseReference.removeEventListener(mSendValueEventListener);
+        }
+    }
+
     public void firebaseTanimla() {
 
 
@@ -74,12 +79,12 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
     }
 
 
-
     public void ortakkontrol() {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users").child(kuid).child("lists").child(listeadi).child("listeortaklari");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -112,7 +117,10 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
+
+        databaseReference.addValueEventListener(valueEventListener);
+        mSendValueEventListener = valueEventListener;
 
 
     }
@@ -121,13 +129,19 @@ public class FragmentOrtaklisteOrtakgoruntule extends Fragment {
     private void toolbarAction() {
 
         toolbar = view.findViewById(R.id.ortaklisteortakgoruntuletoolbar);
+        toolbar.setSubtitleTextAppearance(getContext(), R.style.ToolbarSubTitleTextApperance);
+        toolbar.setTitleTextAppearance(getContext(), R.style.ToolbarTitleTextApperance);
         toolbar.setTitle("Liste Ortakları");
         toolbar.setSubtitle(listeadi);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if (mSendValueEventListener != null) {
 
+
+                    databaseReference.removeEventListener(mSendValueEventListener);
+                }
                 getActivity().onBackPressed();
                 // back button pressed
             }

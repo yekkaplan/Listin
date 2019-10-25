@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,22 +16,17 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alisverisim.yek.listin.Activitys.LoginActivity;
 import com.alisverisim.yek.listin.Interfaces.IOnBackPressed;
-import com.alisverisim.yek.listin.Listeners.anamenupopuplistener;
 import com.alisverisim.yek.listin.R;
 import com.alisverisim.yek.listin.Utils.randomStringGenerator;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +42,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.iceteck.silicompressorr.SiliCompressor;
+import com.gregacucnik.EditTextView;
+import com.pd.chocobar.ChocoBar;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -59,17 +57,15 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
-import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
-import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class FragmentProfil extends Fragment implements IOnBackPressed {
 
     View view;
     Toolbar toolbar;
-    ExtendedEditText mailAdresi, kAdi, dogumExtendted;
-    Button guncellebuton, cikisButton, kullanımButton;
+    EditTextView ad_soyad_edittext, dogum_gunu_edittext, email_edittext;
+    TextView guncellebuton, cikisButton, kullanımButton;
     CircleImageView profilresmi;
-    ImageView paylasButton, popupButton;
+    ImageView addresim;
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth firebaseAuth;
     String imageUrl;
@@ -78,8 +74,6 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
     DatabaseReference reference;
     StorageReference storageReference;
     FirebaseStorage firebaseStorage;
-    TextView profiltextbaslik;
-    TextFieldBoxes emailTextFieldBoxes, kadiEmailTextFieldBoxes, dogumTextfieldboxes;
 
 
     @Nullable
@@ -87,17 +81,20 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.profil_fragment, container, false);
+
         tanimla();
         getUsersValue();
         buttonAction();
         tabAction();
+
+
         return view;
     }
 
+
     public void tanimla() {
 
-        profiltextbaslik = view.findViewById(R.id.kisiselbilgilertextview);
-
+        addresim = view.findViewById(R.id.add_resim);
         profilresmi = view.findViewById(R.id.profile_image);
         // firebase tanımlamaları
         // galeri için storage işlemi
@@ -112,15 +109,14 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
         reference = firebaseDatabase.getReference().child("Users").child(firebaseUser.getUid()); // users childinin altındaki userslara eriştik.
 
 
-        dogumTextfieldboxes = view.findViewById(R.id.dogumGunuTextfield);
-        dogumExtendted = view.findViewById(R.id.dogumGunuedittext);
-        mailAdresi = view.findViewById(R.id.emailProfileEdittext);
-        kAdi = view.findViewById(R.id.ProfilAdınveSoyadınEdit);
-        guncellebuton = view.findViewById(R.id.profilBilgiGuncelle);
-        cikisButton = view.findViewById(R.id.cikisyapButton);
-        emailTextFieldBoxes = view.findViewById(R.id.emailProfileTextfield);
-        kadiEmailTextFieldBoxes = view.findViewById(R.id.profilAdınveSoyadınTextfield);
-        kullanımButton = view.findViewById(R.id.kullanimvegizlilikbutton);
+        dogum_gunu_edittext = view.findViewById(R.id.dogum_gunu_edittext);
+
+
+        email_edittext = view.findViewById(R.id.email_edittext);
+        ad_soyad_edittext = view.findViewById(R.id.ad_soyad_edittext);
+        guncellebuton = view.findViewById(R.id.guncellebuton);
+        cikisButton = view.findViewById(R.id.cikisButton);
+        kullanımButton = view.findViewById(R.id.kullanim_gizlilik);
 
 
     }
@@ -161,66 +157,45 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
         });
 
 
-        dogumTextfieldboxes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
 
-                // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int year = mcurrentTime.get(Calendar.YEAR);//Güncel Yılı alıyoruz
-                int month = mcurrentTime.get(Calendar.MONTH);//Güncel Ayı alıyoruz
-                int day = mcurrentTime.get(Calendar.DAY_OF_MONTH);//Güncel Günü alıyoruz
+            dogum_gunu_edittext.setEditTextViewListener(new EditTextView.EditTextViewListener() {
+                @Override
+                public void onEditTextViewEditModeStart() {
 
-                DatePickerDialog datePicker;//Datepicker objemiz
-                datePicker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    Calendar mcurrentTime = Calendar.getInstance();
+                    int year = mcurrentTime.get(Calendar.YEAR);//Güncel Yılı alıyoruz
+                    int month = mcurrentTime.get(Calendar.MONTH);//Güncel Ayı alıyoruz
+                    int day = mcurrentTime.get(Calendar.DAY_OF_MONTH);//Güncel Günü alıyoruz
 
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                          int dayOfMonth) {
-                        // TODO Auto-generated method stub
-                        dogumExtendted.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);//Ayarla butonu tıklandığında textview'a yazdırıyoruz
+                    DatePickerDialog datePicker;//Datepicker objemiz
+                    datePicker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
 
-                    }
-                }, year, month, day);//başlarken set edilcek değerlerimizi atıyoruz
-                datePicker.setTitle("Tarih Seçiniz");
-                datePicker.setButton(DatePickerDialog.BUTTON_POSITIVE, "Ayarla", datePicker);
-                datePicker.setButton(DatePickerDialog.BUTTON_NEGATIVE, "İptal", datePicker);
+                        @Override
+                        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                              int dayOfMonth) {
+                            // TODO Auto-generated method stub
+                            dogum_gunu_edittext.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);//Ayarla butonu tıklandığında textview'a yazdırıyoruz
 
-                datePicker.show();
+                        }
+                    }, year, month, day);//başlarken set edilcek değerlerimizi atıyoruz
+                    datePicker.setTitle("Tarih Seçiniz");
+                    datePicker.setButton(DatePickerDialog.BUTTON_POSITIVE, "Ayarla", datePicker);
+                    datePicker.setButton(DatePickerDialog.BUTTON_NEGATIVE, "İptal", datePicker);
 
-            }
-        });
+                    datePicker.show();
+
+                }
+
+                @Override
+                public void onEditTextViewEditModeFinish(String text) {
 
 
-        dogumExtendted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int year = mcurrentTime.get(Calendar.YEAR);//Güncel Yılı alıyoruz
-                int month = mcurrentTime.get(Calendar.MONTH);//Güncel Ayı alıyoruz
-                int day = mcurrentTime.get(Calendar.DAY_OF_MONTH);//Güncel Günü alıyoruz
 
-                DatePickerDialog datePicker;//Datepicker objemiz
-                datePicker = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
 
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                          int dayOfMonth) {
-                        // TODO Auto-generated method stub
-                        dogumExtendted.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);//Ayarla butonu tıklandığında textview'a yazdırıyoruz
+                }
+            });
 
-                    }
-                }, year, month, day);//başlarken set edilcek değerlerimizi atıyoruz
-                datePicker.setTitle("Tarih Seçiniz");
-                datePicker.setButton(DatePickerDialog.BUTTON_POSITIVE, "Ayarla", datePicker);
-                datePicker.setButton(DatePickerDialog.BUTTON_NEGATIVE, "İptal", datePicker);
-
-                datePicker.show();
-
-            }
-        });
 
 
         kullanımButton.setOnClickListener(new View.OnClickListener() {
@@ -240,14 +215,28 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
     public void updateUsersValue() {
 
 
-        final String isim = kAdi.getText().toString();
-        final String dogumtarihi = dogumExtendted.getText().toString();
+        final String isim = ad_soyad_edittext.getText().toString();
+        final String dogumtarihi = dogum_gunu_edittext.getText().toString();
 
 
         if (isim.equals("") && dogumtarihi.equals("")) {
 
 
-            Toast.makeText(getContext(), "Lütfen boş alan bırakmayınız.", Toast.LENGTH_SHORT).show();
+            ChocoBar.builder().setBackgroundColor(getResources().getColor(R.color.colorPrimary))
+                    .setTextSize(16)
+                    .setTextColor(Color.parseColor("#FFFFFF"))
+                    .setTextTypefaceStyle(Typeface.NORMAL)
+                    .setText("Lütfen boş alan bırakmayınız.")
+                    .setMaxLines(2)
+                    .centerText()
+                    .setIcon(R.drawable.ic_snackbar)
+                    .setActivity(getActivity())
+                    .setDuration(ChocoBar.LENGTH_SHORT)
+                    .build()
+                    .show();
+
+
+
         } else if (!isim.equals("") && !dogumtarihi.equals("")) {
             r1 = new SpotsDialog(getActivity(), R.style.Custom);
             r1.show();
@@ -257,7 +246,7 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
                 public void run() {
 
                     Map map = new HashMap();
-                    map.put("email", mailAdresi.getText().toString());
+                    map.put("email", email_edittext.getText().toString());
                     map.put("isim", isim);
                     map.put("dogumtarihi", dogumtarihi);
 
@@ -267,9 +256,22 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
                         public void onComplete(@NonNull Task task) {
 
 
-                            kAdi.setText(isim);
-                            dogumExtendted.setText(dogumtarihi);
-                            Toast.makeText(getContext(), "Bilgileriniz Güncellendi.", Toast.LENGTH_SHORT).show();
+                            ad_soyad_edittext.setText(isim);
+                            dogum_gunu_edittext.setText(dogumtarihi);
+
+                            ChocoBar.builder().setBackgroundColor(getResources().getColor(R.color.colorPrimary))
+                                    .setTextSize(16)
+                                    .setTextColor(Color.parseColor("#FFFFFF"))
+                                    .setTextTypefaceStyle(Typeface.NORMAL)
+                                    .setText("Bilgileriniz güncellendi.")
+                                    .setMaxLines(2)
+                                    .centerText()
+                                    .setIcon(R.drawable.ic_snackbar)
+                                    .setActivity(getActivity())
+                                    .setDuration(ChocoBar.LENGTH_SHORT)
+                                    .build()
+                                    .show();
+
                             r1.dismiss();
 
                         }
@@ -299,15 +301,15 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
 
-                kAdi.setText(dataSnapshot.child("isim").getValue().toString());
-                mailAdresi.setText(dataSnapshot.child("email").getValue().toString());
-                dogumExtendted.setText(dataSnapshot.child("dogumtarihi").getValue().toString());
+                ad_soyad_edittext.setText(dataSnapshot.child("isim").getValue().toString());
+                email_edittext.setText(dataSnapshot.child("email").getValue().toString());
+                dogum_gunu_edittext.setText(dataSnapshot.child("dogumtarihi").getValue().toString());
 
                 if (!dataSnapshot.child("resim").getValue().toString().equals("")) {
 
                     Picasso.get()
                             .load(dataSnapshot.child("resim").getValue().toString())
-                            .resize(150, 150)
+                            .resize(140, 140)
                             .into(profilresmi);
                 }
 
@@ -367,7 +369,22 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
             }
 
 
-            Toast.makeText(getContext(), "Resim Yükleniyor..", Toast.LENGTH_LONG).show();
+
+
+            ChocoBar.builder().setBackgroundColor(getResources().getColor(R.color.colorPrimary))
+                    .setTextSize(16)
+                    .setTextColor(Color.parseColor("#FFFFFF"))
+                    .setTextTypefaceStyle(Typeface.NORMAL)
+                    .setText("Profil fotoğrafı güncelleniyor.")
+                    .setMaxLines(2)
+                    .centerText()
+                    .setIcon(R.drawable.ic_snackbar)
+                    .setActivity(getActivity())
+                    .setDuration(ChocoBar.LENGTH_SHORT)
+                    .build()
+                    .show();
+
+
 
             final StorageReference ref = storageReference.child("kullaniciresimleri").child(randomStringGenerator.generateString() + ".jpg");
             ref.putBytes(byteArray).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -377,9 +394,9 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
                         @Override
                         public void onSuccess(Uri uri) {
                             imageUrl = uri.toString();
-                            String mail = mailAdresi.getText().toString();
-                            String kadi = kAdi.getText().toString();
-                            String dogumTarih = dogumExtendted.getText().toString();
+                            String mail = email_edittext.getText().toString();
+                            String kadi = ad_soyad_edittext.getText().toString();
+                            String dogumTarih = dogum_gunu_edittext.getText().toString();
                             reference = firebaseDatabase.getReference().child("Users").child(firebaseUser.getUid());
                             Map map = new HashMap();
                             map.put("isim", kadi);
@@ -428,8 +445,10 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
 
         toolbar = view.findViewById(R.id.profiltoolbar);
 
+        toolbar.setTitleTextAppearance(getContext(), R.style.ToolbarTitleTextApperance);
+        toolbar.setSubtitleTextAppearance(getContext(), R.style.ToolbarSubTitleTextApperance);
 
-        toolbar.setTitle("Listin & Çevrimiçi Listeler");
+        toolbar.setTitle("Listin");
         toolbar.setSubtitle("Profilim");
         toolbar.inflateMenu(R.menu.cevrimici_toolbar);
 
@@ -455,4 +474,6 @@ public class FragmentProfil extends Fragment implements IOnBackPressed {
 
 
     }
+
+
 }

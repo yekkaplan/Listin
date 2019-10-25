@@ -3,44 +3,34 @@ package com.alisverisim.yek.listin.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alisverisim.yek.listin.Activitys.LoginActivity;
-import com.alisverisim.yek.listin.Activitys.MainActivity;
 import com.alisverisim.yek.listin.Adapters.cevrimiciTumListeAdapter;
 import com.alisverisim.yek.listin.AlertDialogs.cevrimiciListeEkleAlert;
 import com.alisverisim.yek.listin.Interfaces.IOnBackPressed;
-import com.alisverisim.yek.listin.Listeners.anamenupopuplistener;
-import com.alisverisim.yek.listin.Listeners.cevrimicipopuplistener;
 import com.alisverisim.yek.listin.Models.cevrimcilistmodel;
 import com.alisverisim.yek.listin.R;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.mlsdev.animatedrv.AnimatedRecyclerView;
 
 import java.util.ArrayList;
@@ -58,13 +48,13 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
     AnimatedRecyclerView cevrimicitumlistelerRecylerview;
     cevrimiciTumListeAdapter cevrimiciTumListeAdapter;
     List<cevrimcilistmodel> listeler;
-    cevrimcilistmodel cevrimcilistmodel;
     String listeadi;
+    TextView cevrimicivisibletext;
     SpotsDialog profilProgress;
     TextView tumlistelervisibletext;
     ImageView popup;
     Context context;
-    ImageView paylasbutton;
+    ChildEventListener mSendChildEventListener;
     FloatingActionButton floatingActionButton;
 
 
@@ -83,10 +73,22 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
         return view;
     }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if (mSendChildEventListener != null) {
+
+            reference.removeEventListener(mSendChildEventListener);
+        }
     }
 
     public void firebaseTanımlanması() {
@@ -95,7 +97,6 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
-        tumlistelervisibletext = view.findViewById(R.id.tumlistelervisibletext);
     }
 
 
@@ -109,7 +110,7 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
         // popup = view.findViewById(R.id.cevrimicipopupTextview);
 
         cevrimicitumlistelerRecylerview = view.findViewById(R.id.recycler_view);
-
+        cevrimicivisibletext = view.findViewById(R.id.cevrimicivisibletext);
 
         RecyclerView.LayoutManager mng = new GridLayoutManager(getContext(), 2);
         cevrimicitumlistelerRecylerview.setLayoutManager(mng);
@@ -130,9 +131,12 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
 
         toolbar = view.findViewById(R.id.toolbar);
 
-
-        toolbar.setTitle("Listin & Çevrimiçi Listeler");
+        toolbar.setTitleTextAppearance(getContext(), R.style.ToolbarTitleTextApperance);
+        toolbar.setSubtitleTextAppearance(getContext(), R.style.ToolbarSubTitleTextApperance);
+        toolbar.setTitle("Listin");
         toolbar.setSubtitle("Çevrimiçi Listeler");
+
+
         toolbar.inflateMenu(R.menu.cevrimici_toolbar);
 
 
@@ -179,88 +183,107 @@ public class FragmentCevrimici extends Fragment implements IOnBackPressed {
 
     public void cevrimicilistelerkontrol() {
 
+        listeler = new ArrayList<>();
+        reference = firebaseDatabase.getReference("Users").child(firebaseUser.getUid()).child("lists");
 
-        profilProgress = new SpotsDialog(getActivity(), R.style.Custom);
+        profilProgress = new SpotsDialog(getContext(),R.style.Custom);
+
         profilProgress.show();
-        new Thread(new Runnable() {
-            public void run() {
-                reference = firebaseDatabase.getReference("Users").child(firebaseUser.getUid()).child("lists");
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        ChildEventListener childEventListener = new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if (dataSnapshot.exists()) {
+
+                    if (dataSnapshot.child("listeortaklari").getChildrenCount() >= 1) {
 
 
-                        listeler = new ArrayList<>();
+                        cevrimicivisibletext.setVisibility(View.INVISIBLE);
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        listeadi = dataSnapshot.getKey();
+                        Long urunsayisi = dataSnapshot.child("Urunler").getChildrenCount();
+                        Long ortaksayisi = dataSnapshot.child("listeortaklari").getChildrenCount();
 
-                        if (dataSnapshot.exists()) {
+                        for (DataSnapshot veri : dataSnapshot.child("listeortaklari").getChildren()) {
 
-                            if (dataSnapshot.getChildren() != null) {
-
-                                if (cevrimicitumlistelerRecylerview.getVisibility() != View.VISIBLE) {
-
-                                    cevrimicitumlistelerRecylerview.setVisibility(View.VISIBLE);
-                                    tumlistelervisibletext.setVisibility(View.INVISIBLE);
-
-                                }
+                            hashMap.put(veri.getKey(), veri.getValue());
 
 
-                                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                    HashMap<String, Object> hashMap = new HashMap<>();
-
-                                    listeadi = ds.getKey();
-                                    Long urunsayisi = ds.child("Urunler").getChildrenCount();
-                                    Long ortaksayisi = ds.child("listeortaklari").getChildrenCount();
-                                    for (DataSnapshot veri : ds.child("listeortaklari").getChildren()) {
-
-                                        hashMap.put(veri.getKey(), veri.getValue());
-                                    }
-                                    cevrimcilistmodel = new cevrimcilistmodel(listeadi, ortaksayisi, urunsayisi, hashMap);
-                                    listeler.add(cevrimcilistmodel);
-
-
-                                }
-                            }
                         }
 
-                        if (listeler.size() > 0) {
 
-                            cevrimiciTumListeAdapter = new cevrimiciTumListeAdapter(listeler, getActivity(), getContext());
-                            cevrimiciTumListeAdapter.notifyDataSetChanged();
-                            cevrimicitumlistelerRecylerview.setAdapter(cevrimiciTumListeAdapter);
-                            cevrimicitumlistelerRecylerview.notifyDataSetChanged();
-                            profilProgress.dismiss();
+                        cevrimcilistmodel cevrimcilistmodel = new cevrimcilistmodel(listeadi, ortaksayisi, urunsayisi, hashMap);
 
-
-                        } else if (listeler.size() == 0) {
-                            cevrimicitumlistelerRecylerview.setVisibility(View.INVISIBLE);
-                            tumlistelervisibletext.setVisibility(View.VISIBLE);
-
-                            profilProgress.dismiss();
-                        }
+                        listeler.add(cevrimcilistmodel);
 
 
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    cevrimiciTumListeAdapter = new cevrimiciTumListeAdapter(listeler, getActivity(), getContext());
+                    cevrimicitumlistelerRecylerview.setAdapter(cevrimiciTumListeAdapter);
+                    cevrimiciTumListeAdapter.notifyDataSetChanged();
+                    profilProgress.dismiss();
+
+                    if(listeler.size() == 0){
+
+                        cevrimicivisibletext.setVisibility(View.VISIBLE);
+                        profilProgress.dismiss();
+
 
                     }
-                });
+
+                }
+
 
             }
-        }).start();
 
-        Handler progressHandler = new Handler() {
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            public void handleMessage(Message msg1) {
 
-                profilProgress.dismiss();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                for (int i = 0; i <= listeler.size() - 1; i++) {
+
+                    if (listeler.get(i).getListeadi().equals(dataSnapshot.getKey())) {
+
+                        listeler.remove(listeler.get(i));
+
+                        cevrimiciTumListeAdapter.notifyItemRemoved(i);
+                        cevrimiciTumListeAdapter.notifyItemRangeChanged(i, listeler.size());
+
+
+                    }
+                }
+
+                if (listeler.size() == 0) {
+
+                    cevrimicivisibletext.setVisibility(View.VISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         };
 
 
-    }
+        reference.addChildEventListener(childEventListener);
+        mSendChildEventListener = childEventListener;
 
+
+    }
 
     @Override
     public boolean onBackPressed() {

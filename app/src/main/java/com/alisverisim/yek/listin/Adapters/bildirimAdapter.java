@@ -2,6 +2,8 @@ package com.alisverisim.yek.listin.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alisverisim.yek.listin.Activitys.LoginActivity;
 import com.alisverisim.yek.listin.Activitys.MainActivity;
 import com.alisverisim.yek.listin.Models.kullanicieklemodel;
 import com.alisverisim.yek.listin.R;
@@ -24,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pd.chocobar.ChocoBar;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,7 +44,7 @@ public class bildirimAdapter extends BaseAdapter {
     String gemail;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference,databaseReference2;
     public bildirimAdapter(List<String> list, Context context, Activity activity, String Listeadi) {
         this.list = list;
         this.context = context;
@@ -79,8 +83,8 @@ public class bildirimAdapter extends BaseAdapter {
         linear = convertView.findViewById(R.id.bildirimlinear);
 
 
-        databaseReference = firebaseDatabase.getReference("Users").child(list.get(position));
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference2 = firebaseDatabase.getReference("Users").child(list.get(position));
+        databaseReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -106,9 +110,7 @@ public class bildirimAdapter extends BaseAdapter {
 
                     gemail = dataSnapshot.child("email").getValue(String.class);
                     email.setText(gemail);
-
-
-                    Log.i("maildeneme", gemail + " " + MainActivity.mail);
+                    databaseReference2.removeEventListener(this);
 
                 }
 
@@ -141,7 +143,21 @@ public class bildirimAdapter extends BaseAdapter {
                             if (dataSnapshot.getValue(String.class) != null) {
 
                                 FirebaseServices.sendFCMPush(dataSnapshot.getValue(String.class), Listeadi, context);
-                                Toast.makeText(context, "Bildirim gönderildi.", Toast.LENGTH_SHORT).show();
+
+                                ChocoBar.builder().setBackgroundColor(activity.getResources().getColor(R.color.colorPrimary))
+                                        .setTextSize(16)
+                                        .setTextColor(Color.parseColor("#FFFFFF"))
+                                        .setTextTypefaceStyle(Typeface.NORMAL)
+                                        .setText("Bildirim gönderildi.")
+                                        .setMaxLines(2)
+                                        .centerText()
+                                        .setIcon(R.drawable.ic_snackbar)
+                                        .setActivity(activity)
+                                        .setDuration(ChocoBar.LENGTH_SHORT)
+                                        .build()
+                                        .show();
+
+
                                 databaseReference.removeEventListener(this);
                                 linear.setClickable(false);
                             }
@@ -156,7 +172,20 @@ public class bildirimAdapter extends BaseAdapter {
 
                 } else if (list.get(position).equals(firebaseUser.getUid())) {
 
-                    Toast.makeText(context, "Kendi hesabınıza bildirim yollayamazsınız.", Toast.LENGTH_SHORT).show();
+
+                    ChocoBar.builder().setBackgroundColor(activity.getResources().getColor(R.color.colorPrimary))
+                            .setTextSize(16)
+                            .setTextColor(Color.parseColor("#FFFFFF"))
+                            .setTextTypefaceStyle(Typeface.NORMAL)
+                            .setText("Kendi hesabınıza bildirim yollayamazsınız.")
+                            .setMaxLines(2)
+                            .centerText()
+                            .setIcon(R.drawable.ic_snackbar)
+                            .setActivity(activity)
+                            .setDuration(ChocoBar.LENGTH_SHORT)
+                            .build()
+                            .show();
+
                 }
 
             }

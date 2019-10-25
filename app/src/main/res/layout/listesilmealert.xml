@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:background="@color/colorDeepCamaru"
+    android:padding="16dp">
 
 
     <LinearLayout
@@ -16,10 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_warning"
-            android:fontFamily="sans-serif"
+            android:fontFamily="@font/muli_regular"
             android:gravity="center"
-            android:textColor="@color/colorTabText"
-            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="normal" />
 
         <RelativeLayout
@@ -35,7 +36,9 @@
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@+id/listesiltamam"
                 android:text="İptal"
-                android:textSize="16dp"
+                android:fontFamily="@font/muli_regular"
+                android:textSize="16sp"
+                android:textColor="@color/white"
                 android:textStyle="normal" />
 
 
@@ -46,8 +49,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
                 android:text="Tamam"
-                android:textColor="@color/holo_red_light"
-                android:textSize="16dp"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
         </RelativeLayout>

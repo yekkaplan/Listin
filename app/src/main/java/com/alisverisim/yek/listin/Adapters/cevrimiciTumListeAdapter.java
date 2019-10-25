@@ -3,39 +3,32 @@ package com.alisverisim.yek.listin.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alisverisim.yek.listin.AlertDialogs.listesilmealert;
 import com.alisverisim.yek.listin.Fragments.FragmentCevrimiciIcerik;
-import com.alisverisim.yek.listin.Listeners.cevrimicipopuplistener;
 import com.alisverisim.yek.listin.Models.cevrimcilistmodel;
 import com.alisverisim.yek.listin.R;
 import com.alisverisim.yek.listin.Utils.ChangeFragment;
+import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 
 public class cevrimiciTumListeAdapter extends RecyclerView.Adapter<cevrimiciTumListeAdapter.viewHolder> {
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
 
     List<cevrimcilistmodel> listemodel;
@@ -81,27 +74,17 @@ public class cevrimiciTumListeAdapter extends RecyclerView.Adapter<cevrimiciTumL
 
                 // fragment değiştirdim ve liste adını yolladım :)
                 ChangeFragment changeFragment = new ChangeFragment(context);
-                changeFragment.veriGonder(new FragmentCevrimiciIcerik(), listemodel.get(i).getListeadi(), "cevrimiciIcerikFrag");
+                changeFragment.veriGonder(new FragmentCevrimiciIcerik(), listemodel.get(i).getListeadi(), "Fragment");
 
             }
         });
 
 
-        viewHolder.cevrimicitumliner.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                HashMap<String, Object> kullanicihashmap = listemodel.get(i).getHashMap();
-                final String listeadi = listemodel.get(i).getListeadi();
+        HashMap<String, Object> kullanicihashmap = listemodel.get(i).getHashMap();
+        final String listeadi = listemodel.get(i).getListeadi();
 
 
-                listesilmealert listesilmealert = new listesilmealert(activity, kullanicihashmap, listeadi, kuid);
-
-                listesilmealert.ac();
-
-                return true;
-            }
-        });
+        viewHolder.onBind(kullanicihashmap, listeadi);
 
 
     }
@@ -114,23 +97,51 @@ public class cevrimiciTumListeAdapter extends RecyclerView.Adapter<cevrimiciTumL
     }
 
 
+    public void saveStates(Bundle outState) {
+        viewBinderHelper.saveStates(outState);
+    }
+
+    public void restoreStates(Bundle inState) {
+        viewBinderHelper.restoreStates(inState);
+    }
+
     // vievlerin tanımlanma işlemleri
     public class viewHolder extends RecyclerView.ViewHolder {
 
 
         // burada tanımlama sebebi altclass'da erişmesi yani global işte :)
-        LinearLayout cevrimicitumliner;
-        ImageView icerigir, overflow;
+        RelativeLayout cevrimicitumliner;
+        ImageView icerigir;
         TextView listeadi;
         Typeface typeface;
+        TextView listesilSwipe;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             typeface = Typeface.createFromAsset(activity.getAssets(), "fonts/yekfont.ttf");
             listeadi = itemView.findViewById(R.id.cevrimicitumlistebaslik);
             icerigir = itemView.findViewById(R.id.cevrimiciimageview);
-            cevrimicitumliner = itemView.findViewById(R.id.cevrimicitumlinearlayout);
+            listesilSwipe = itemView.findViewById(R.id.liste_silswipe);
+            cevrimicitumliner = itemView.findViewById(R.id.cevrimic_front_layout);
+
         }
+
+        private void onBind(final HashMap<String, Object> kullanicihashmap, final String listeadi) {
+
+
+            listesilSwipe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    listesilmealert listesilmealert = new listesilmealert(activity, kullanicihashmap, listeadi, kuid);
+
+                    listesilmealert.ac();
+
+                }
+            });
+
+        }
+
     }
 
 

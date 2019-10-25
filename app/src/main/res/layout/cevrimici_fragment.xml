@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackgraound"
+        android:background="@color/colorDeepCamaru"
         android:orientation="vertical">
 
 
@@ -35,16 +35,20 @@
             app:layoutManagerType="linear" />
 
         <TextView
-            android:id="@+id/tumlistelervisibletext"
+            android:id="@+id/cevrimicivisibletext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:drawableTop="@drawable/ic_sync_disabled"
-            android:text="Liste bulunamadı. + tuşundan oluşturabilirsiniz."
-            android:textColor="@color/colorTabText"
+            android:drawableTop="@drawable/ic_empty_shopping_cart"
+            android:text="Alışveriş listesi bulunamadı.\n Yeni bir liste oluşturun."
+            android:textColor="@color/white"
             android:textSize="14dp"
+            android:textAlignment="center"
+            android:fontFamily="@font/muli_regular"
             android:textStyle="normal"
             android:visibility="invisible" />
+
+
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/cevrimicifab"
@@ -54,9 +58,9 @@
             android:layout_alignParentBottom="true"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/fab_add"
-            fab:fab_colorNormal="@color/secondaryPink"
-            fab:fab_colorPressed="@color/colorAccent"
+            android:src="@drawable/ic_add"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_colorPressed="@color/colorPrimaryDark"
             fab:fab_colorRipple="@color/colorPrimary" />
 
 

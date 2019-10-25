@@ -5,29 +5,26 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alisverisim.yek.listin.Activitys.LoginActivity;
 import com.alisverisim.yek.listin.Activitys.MainActivity;
 import com.alisverisim.yek.listin.Adapters.cevrimiciOrtakListeAdapter;
 import com.alisverisim.yek.listin.Interfaces.IOnBackPressed;
-import com.alisverisim.yek.listin.Listeners.anamenupopuplistener;
-import com.alisverisim.yek.listin.Models.cevrimcilistmodel;
 import com.alisverisim.yek.listin.Models.ortaklistmodel;
 import com.alisverisim.yek.listin.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,10 +40,9 @@ import dmax.dialog.SpotsDialog;
 public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference reference1, reference2;
+    DatabaseReference reference1;
     FirebaseAuth firebaseAuth;
     cevrimiciOrtakListeAdapter cevrimiciOrtakListeAdapter;
-    cevrimcilistmodel cevrimicilistmodel;
     RecyclerView recyclerView;
     List<ortaklistmodel> listModels;
     ortaklistmodel ortaklistmodel;
@@ -54,8 +50,7 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
     FirebaseUser firebaseUser;
     TextView visibleortaklist;
     Toolbar toolbar;
-    ImageView paylasbutton, popupTextview;
-
+    ChildEventListener mChildEventlistener;
     View view;
 
     @Override
@@ -66,6 +61,14 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
         cevrimicilistekontrol();
         tabAction();
         return view;
+
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
 
     }
 
@@ -100,13 +103,6 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
 
                         if (dataSnapshot.exists()) {
 
-                            if (recyclerView.getVisibility() != View.VISIBLE) {
-
-                                recyclerView.setVisibility(View.VISIBLE);
-                                visibleortaklist.setVisibility(View.INVISIBLE);
-
-                            }
-
 
                             for (DataSnapshot ds : dataSnapshot.getChildren()) {
                                 String listeadi = ds.child("listeadi").getValue(String.class);
@@ -120,14 +116,19 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
 
                         if (listModels.size() > 0) {
 
+
                             cevrimiciOrtakListeAdapter = new cevrimiciOrtakListeAdapter(listModels, getActivity(), getContext());
                             recyclerView.setAdapter(cevrimiciOrtakListeAdapter);
                             cevrimiciOrtakListeAdapter.notifyDataSetChanged();
                             profilProgress.dismiss();
+                            visibleortaklist.setVisibility(View.INVISIBLE);
 
 
                         } else if (listModels.size() == 0) {
-                            recyclerView.setVisibility(View.INVISIBLE);
+                            cevrimiciOrtakListeAdapter = new cevrimiciOrtakListeAdapter(listModels, getActivity(), getContext());
+                            recyclerView.setAdapter(cevrimiciOrtakListeAdapter);
+                            cevrimiciOrtakListeAdapter.notifyDataSetChanged();
+
                             visibleortaklist.setVisibility(View.VISIBLE);
                             profilProgress.dismiss();
                         }
@@ -168,8 +169,10 @@ public class FragmentOrtakListe extends Fragment implements IOnBackPressed {
 
         toolbar = view.findViewById(R.id.ortaklistetoolbar);
 
+        toolbar.setTitleTextAppearance(getContext(), R.style.ToolbarTitleTextApperance);
+        toolbar.setSubtitleTextAppearance(getContext(), R.style.ToolbarSubTitleTextApperance);
 
-        toolbar.setTitle("Listin & Çevrimiçi Listeler");
+        toolbar.setTitle("Listin");
         toolbar.setSubtitle("Ortak Listeler");
         toolbar.inflateMenu(R.menu.cevrimici_toolbar);
 

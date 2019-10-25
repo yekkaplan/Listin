@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.alisverisim.yek.listin">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -14,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name="com.alisverisim.yek.listin.Activitys.LoginActivity"></activity>
         <activity android:name="com.alisverisim.yek.listin.Activitys.SplashScreen">
             <intent-filter>
@@ -24,11 +19,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name="com.alisverisim.yek.listin.Activitys.MainActivity"
             android:launchMode="singleTask" />
-        <activity
-            android:name="com.alisverisim.yek.listin.Activitys.KayitActivity"
-            android:label="@string/title_activity_kayit" />
 
 
         <service android:name=".MyFirebaseInstanceIDService">
@@ -56,5 +49,9 @@
     <meta-data
         android:name="com.google.firebase.messaging.default_notification_color"
         android:resource="@color/colorAccent" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

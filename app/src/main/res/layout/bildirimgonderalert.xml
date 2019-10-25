@@ -3,24 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:background="@color/colorDeepCamaru"
+    android:padding="16dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableTop="@drawable/ic_check_circle"
-            android:fontFamily="sans-serif"
+            android:drawableTop="@drawable/ic_bildirim_gonderildi"
+            android:fontFamily="@font/muli_regular"
             android:gravity="center"
             android:text="Bu listedeki tüm kullanıcılara ürün eklediğinize dair bildirim gönderilecektir."
-            android:textColor="@color/colorTabText"
-            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="normal" />
 
         <RelativeLayout
@@ -36,8 +36,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="10dp"
                 android:text="Tamam"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16dp"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
                 android:textStyle="normal" />
 
 
@@ -48,8 +49,9 @@
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@+id/onaylıyorumButton"
                 android:text="iptal"
-                android:textColor="@color/colorTabText"
-                android:textSize="16dp"
+                android:fontFamily="@font/muli_regular"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="normal" />
         </RelativeLayout>
     </LinearLayout>

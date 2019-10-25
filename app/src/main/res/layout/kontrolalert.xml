@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:background="@color/colorDeepCamaru"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -13,24 +14,25 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:drawableTop="@drawable/ic_check_circle"
+        android:drawableTop="@drawable/ic_bildirim_gonderildi"
         android:drawablePadding="5dp"
         android:gravity="center"
-        android:fontFamily="sans-serif"
-        android:text="Kullanıcı listenize Başarıyla eklendi."
-        android:textColor="@color/colorTabText"
-        android:textSize="16dp"
-        android:textStyle="normal" />
+        android:fontFamily="@font/muli_regular"
+        android:text="Kullanıcı listenize başarıyla eklendi."
+        android:textColor="@color/white"
+        android:textSize="16sp"
+
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:gravity="center"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/muli_light"
         android:text="Listenizi görüntüleyebilir,ürünleri silebilir ve yeni ürün ekleyebilir."
-        android:textColor="@color/colorTabText"
-        android:textSize="16dp" />
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/devamtext"
@@ -42,10 +44,11 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:clickable="true"
+        android:fontFamily="@font/muli_regular"
         android:text="Tamam"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorAccent"
         android:textSize="16dp"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
 
 </LinearLayout>
